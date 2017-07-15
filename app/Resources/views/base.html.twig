@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<head>
+    <meta charset="UTF-8"/>
+    <title>{% block title %}Kiste e.V. - Der Studentenclub in Magdeburg!{% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+{% block navbar %}{% endblock %}
+{% block body %}{% endblock %}
+{% block footer %}{% endblock %}
+<script src="{{ asset('js/jquery.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+{% block javascripts %}{% endblock %}
+</body>
 </html>
