@@ -1,0 +1,47 @@
+<div class="navbar-wrapper">
+    <div class="container">
+        <div class="navbar navbar-inverse navbar-static-top"
+             role="navigation">
+            <div class="container">
+                <div class="row">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle"
+                                data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span> <span
+                                    class="icon-bar"></span> <span class="icon-bar"></span> <span
+                                    class="icon-bar"></span>
+                        </button>
+                        <img class="navbar-toggle" src="{{ asset('img/kiste_logo.png') }}"
+                             style="height: 40px;"/>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <div class="col-xs-12 col-sm-6 col-md-5 col-lg-5">
+                            <ul class="nav navbar-nav">
+                                <li class="active"><a href="index.php">Aktuelles</a></li>
+                                <li><a href="menu/sortiment.php">Sortiment</a></li>
+                                <li class="dropdown"><a href="#" class="dropdown-toggle"
+                                                        data-toggle="dropdown">Events <span class="caret"></span></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="menu/partys.php">Partys</a></li>
+                                        <li><a href="menu/kino.php">Kiste-Kino</a></li>
+                                        <li><a href="menu/weitere.php">Weitere Events</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="hidden-xs col-sm-2 col-md-2 col-lg-2">
+                            <a class="navbar-brand" href="index.php"><img
+                                        src="{{ asset('img/kiste_logo.png') }}" style="height: 40px;"/></a>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-5 col-lg-5">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a href="menu/links.php">Links</a></li>
+                                <li><a href="menu/impressum.php">Impressum</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

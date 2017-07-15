@@ -1,0 +1,137 @@
+/* GLOBAL STYLES
+-------------------------------------------------- */
+/* Padding below the footer and lighter body text */
+
+body {
+    padding-bottom: 40px;
+    color: #5a5a5a;
+
+    background-color: #f8f8f8;
+}
+
+hr {
+    color: #CCCCCC;
+    background-color: #CCCCCC;
+    height: 1px;
+}
+
+.navbar-toggle {
+    z-index: 10;
+}
+
+/* CUSTOMIZE THE NAVBAR
+-------------------------------------------------- */
+
+/* Special class on .container surrounding .navbar, used for positioning it into place. */
+.navbar-wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 20;
+}
+
+/* Flip around the padding for proper display in narrow viewports */
+.navbar-wrapper > .container {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.navbar-wrapper .navbar {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.navbar-wrapper .navbar .container {
+    width: auto;
+}
+
+/* Center the Brand */
+
+.navbar-brand {
+    padding-top: 7px;
+    position: absolute;
+    left: 15%;
+    width: 160px;
+
+    display: block;
+
+    text-align: center;
+    background-color: transparent;
+}
+
+.navbar .nav > li > a {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* RESPONSIVE CSS
+-------------------------------------------------- */
+
+@media (min-width: 768px) {
+
+    /* Navbar positioning foo */
+    .navbar-wrapper {
+        margin-top: 20px;
+    }
+
+    .navbar-wrapper .container {
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .navbar-wrapper .navbar {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    /* The navbar becomes detached from the top, so we round the corners */
+    .navbar-wrapper .navbar {
+        border-radius: 4px;
+    }
+}
+
+/*
+
+body {
+    
+
+	background: url('../img/Lights_water_drops_condensation_1920x1080.jpg');
+	padding: 50px;
+}
+
+.navbar-brand-centered {
+	position: absolute;
+	left: 50%;
+	display: block;
+	width: 160px;
+	text-align: center;
+	background-color: transparent;
+}
+
+
+.navbar > .container .navbar-brand-centered, .navbar > .container-fluid .navbar-brand-centered {
+	margin-left: -80px;
+}
+
+.navbar .nav > li > a {
+	color: #CECECE;
+	
+	font-size: 19px;
+	font-weight: bold;
+}
+
+.navbar .nav > li > a:hover {
+	color: red;
+	font-size: 19px;
+		font-weight: bold;
+}
+
+.navbar .nav > li > a:focus {
+	color: red;
+	font-size: 19px;
+		font-weight: bold;
+}
+
+*/
+
