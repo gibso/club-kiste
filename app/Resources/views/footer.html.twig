@@ -3,17 +3,13 @@
 <footer>
     <p class="pull-right">
         Bildquelle: Petra Bork & Tim Reckmann / <a href="www.pixelio.de">pixelio.de</a> &middot;
-        <?php
-			if ($admin) {
-				?>
-        <a href="php/logout.php">Ausloggen</a>
-        <?php
-			} else {
-				?>
-        <a href="login.php">Einloggen</a>
-        <?php
-			}
-			?>
+
+        {% if app.user %}
+            <a href=" {{ path('fos_user_security_logout') }} ">Ausloggen</a>
+        {% else %}
+            <a href=" {{ path('fos_user_security_login') }} ">Einloggen</a>
+        {% endif %}
+
         &middot; <a href="#">Nach oben</a>
     </p>
     <p>
