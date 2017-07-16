@@ -1,0 +1,19 @@
+<!-- FOOTER -->
+<hr style="width: 100%; height: 1px;"/>
+<footer>
+    <p class="pull-right">
+        Bildquelle: Petra Bork & Tim Reckmann / <a href="www.pixelio.de">pixelio.de</a> &middot;
+
+        {% if app.user %}
+            <a href=" {{ path('fos_user_security_logout') }} ">Ausloggen</a>
+        {% else %}
+            <a href=" {{ path('fos_user_security_login') }} ">Einloggen</a>
+        {% endif %}
+
+        &middot; <a href="#">Nach oben</a>
+    </p>
+    <p>
+        &copy; 2015 Studentenclub Kiste e.V. &middot; <a
+                href="menu/impressum.php">Impressum</a>
+    </p>
+</footer>

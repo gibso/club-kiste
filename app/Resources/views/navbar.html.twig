@@ -17,7 +17,7 @@
                     <div class="navbar-collapse collapse">
                         <div class="col-xs-12 col-sm-6 col-md-5 col-lg-5">
                             <ul class="nav navbar-nav">
-                                <li class="active"><a href="index.php">Aktuelles</a></li>
+                                <li class="active"><a href="{{ path('post_index') }}">Aktuelles</a></li>
                                 <li><a href="menu/sortiment.php">Sortiment</a></li>
                                 <li class="dropdown"><a href="#" class="dropdown-toggle"
                                                         data-toggle="dropdown">Events <span class="caret"></span></a>
@@ -30,7 +30,7 @@
                             </ul>
                         </div>
                         <div class="hidden-xs col-sm-2 col-md-2 col-lg-2">
-                            <a class="navbar-brand" href="index.php"><img
+                            <a class="navbar-brand" href="{{ path('post_index') }}"><img
                                         src="{{ asset('img/kiste_logo.png') }}" style="height: 40px;"/></a>
                         </div>
                         <div class="col-xs-12 col-sm-4 col-md-5 col-lg-5">

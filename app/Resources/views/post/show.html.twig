@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link href="{{ asset('css/index.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+
+    {% if app.user %}
+        <div class="row">
+            <div class="col-md-2">
+                <a href="{{ path('post_edit', { 'id': post.id }) }}" class="btn btn-default">
+                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Bearbeiten
+                </a>
+            </div>
+            <div class="col-md-2">
+                {{ form_start(delete_form) }}
+                <input type="submit" value="Löschen" class="btn btn-danger">
+                {{ form_end(delete_form) }}
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="col-md-12">
+    <div class="row featurette">
+        <h2 class="featurette-heading">
+            {{ post.title }} <span class="text-muted">{{ post.subtitle }}</span>
+        </h2>
+        <p class="lead">{{ post.content }}</p>
+        <p>{# post.created_at #}</p>
+    </div>
+    </div>
+    <a href="{{ path('post_index') }}" class="btn btn-default"><span class="glyphicon glyphicon-menu-left"></span>Zurück</a>
+
+{% endblock %}

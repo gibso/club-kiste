@@ -1,0 +1,14 @@
+<div class="col-md-7">
+    <a href="">
+        <h2 class="featurette-heading">
+            {{ post.title }} <span class="text-muted">{{ post.subtitle }}</span>
+        </h2>
+        <p class="lead">{{ post.content|truncate(500) }}</p>
+        <p>{# post.created_at #}</p>
+    </a>
+    {% if app.user %}
+        <a href="{{ path('post_edit', { 'id': post.id }) }}" class="btn btn-default">
+            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+        </a>
+    {% endif %}
+</div>
