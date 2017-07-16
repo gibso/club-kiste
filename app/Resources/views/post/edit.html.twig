@@ -4,8 +4,8 @@
     <h1>Post edit</h1>
 
     {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Speichern" />
+    {{ form_widget(edit_form) }}
+    <input type="submit" value="Speichern"/>
     {{ form_end(edit_form) }}
 
     <ul>
@@ -14,8 +14,8 @@
         </li>
         <li>
             {{ form_start(delete_form) }}
-                <input type="submit" value="Löschen">
-            {{ form_end(delete_form) }}
+            <input type="submit" value="Löschen">
+            <a href="{{ path('post_index') }}">Back to the list</a>
         </li>
     </ul>
 {% endblock %}

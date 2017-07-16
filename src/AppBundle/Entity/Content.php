@@ -162,7 +162,6 @@ abstract class Content
     }
 
     /**
-     *
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */

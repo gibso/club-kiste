@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\File\File;
+
 /**
  * Post controller.
  */
@@ -25,17 +26,8 @@ class PostController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $posts = $em->getRepository('AppBundle:Post')->findAll();
-        $deleteForms = null;
-
-        if($this->getUser()){
-            foreach($posts as $post){
-                $deleteForms[] = $this->createDeleteForm($post);
-            }
-        }
-
         return $this->render('post/index/layout.html.twig', array(
             'posts' => $posts,
-            'deleteForms' => $deleteForms,
         ));
     }
 
@@ -54,8 +46,8 @@ class PostController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
 
             /** @var UploadedFile $file */
-            $file = $post->getImage();
-            $fileName = md5(uniqid()).'.'.$file->guessExtension();
+            $file = $post->getImageFile();
+            $fileName = md5(uniqid()) . '.' . $file->guessExtension();
             $file->move(
                 $this->getParameter('images_directory'),
                 $fileName
@@ -105,10 +97,10 @@ class PostController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
 
-            if ($post->getImageFile()){
+            if ($post->getImageFile()) {
                 /** @var UploadedFile $file */
                 $file = $post->getImageFile();
-                $fileName = md5(uniqid()).'.'.$file->guessExtension();
+                $fileName = md5(uniqid()) . '.' . $file->guessExtension();
                 $file->move(
                     $this->getParameter('images_directory'),
                     $fileName
@@ -160,7 +152,6 @@ class PostController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('post_delete', array('id' => $post->getId())))
             ->setMethod('DELETE')
-            ->getForm()
-        ;
+            ->getForm();
     }
 }

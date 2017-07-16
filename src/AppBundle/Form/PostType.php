@@ -6,9 +6,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\CallbackTransformer;
-use Symfony\Component\HttpFoundation\File\File;
-
 
 class PostType extends AbstractType
 {
@@ -39,6 +36,4 @@ class PostType extends AbstractType
     {
         return 'appbundle_post';
     }
-
-
 }

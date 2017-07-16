@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
 
+<<<<<<< HEAD
 {% block stylesheets %}
     <link href="{{ asset('css/index.css') }}" rel="stylesheet">
 {% endblock %}
@@ -22,14 +23,13 @@
     {% endif %}
 
     <div class="col-md-12">
-    <div class="row featurette">
-        <h2 class="featurette-heading">
-            {{ post.title }} <span class="text-muted">{{ post.subtitle }}</span>
-        </h2>
-        <p class="lead">{{ post.content }}</p>
-        <p>{# post.created_at #}</p>
-    </div>
+        <div class="row featurette">
+            <h2 class="featurette-heading">
+                {{ post.title }} <span class="text-muted">{{ post.subtitle }}</span>
+            </h2>
+            <p class="lead">{{ post.content }}</p>
+            <p>{# post.created_at #}</p>
+        </div>
     </div>
     <a href="{{ path('post_index') }}" class="btn btn-default"><span class="glyphicon glyphicon-menu-left"></span>Zurück</a>
-
 {% endblock %}
