@@ -10,8 +10,11 @@
 </head>
 <body>
 {% block navbar %}{{ include('navbar.html.twig', {'active' : ''}) }}{% endblock %}
-{% block body %}{% endblock %}
-{% block footer %}{% endblock %}
+<div class="container marketing">
+    {% block body %}{% endblock %}
+    {% block footer %}{{ include('footer.html.twig') }}{% endblock %}
+</div>
+
 <script src="{{ asset('js/jquery.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 {% block javascripts %}{% endblock %}
