@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Post
+ * Product
  *
- * @ORM\Table(name="post")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\PostRepository")
+ * @ORM\Table(name="product")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ProductRepository")
  */
-class Post extends Content implements ContentInterface
+class Product extends Content implements ContentInterface
 {
     /**
      * @var string
@@ -31,7 +31,7 @@ class Post extends Content implements ContentInterface
      *
      * @param string $subtitle
      *
-     * @return Post
+     * @return Product
      */
     public function setSubtitle($subtitle)
     {
@@ -61,7 +61,7 @@ class Post extends Content implements ContentInterface
     /**
      * @param string $link
      *
-     * @return Post
+     * @return Product
      */
     public function setLink($link)
     {

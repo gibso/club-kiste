@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Party</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ party.id }}</td>
+            </tr>
+            <tr>
+                <th>Doorsopen</th>
+                <td>{% if party.doorsopen %}{{ party.doorsopen|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Admission</th>
+                <td>{{ party.admission }}</td>
+            </tr>
+            <tr>
+                <th>Boxoffice</th>
+                <td>{% if party.boxoffice %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Preselling</th>
+                <td>{% if party.preselling %}Yes{% else %}No{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('party_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('party_edit', { 'id': party.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

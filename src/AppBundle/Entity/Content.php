@@ -15,6 +15,15 @@ use Symfony\Component\Validator\Constraints as Assert;
 abstract class Content
 {
     /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=true)
@@ -38,6 +47,20 @@ abstract class Content
     /**
      * @var string
      *
+     * @ORM\Column(name="title", type="string", length=255)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="content", type="text")
+     */
+    private $content;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(type="string")
      **/
     private $image;
@@ -50,13 +73,23 @@ abstract class Content
     private $imageFile;
 
     /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * Set createdAt
      *
      * @param \DateTime $createdAt
      *
      * @return Content
      */
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt(\DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
 
@@ -80,7 +113,7 @@ abstract class Content
      *
      * @return Content
      */
-    public function setUpdatedAt($updatedAt)
+    public function setUpdatedAt(\DateTime $updatedAt)
     {
         $this->updatedAt = $updatedAt;
 
@@ -100,11 +133,11 @@ abstract class Content
     /**
      * Set creator
      *
-     * @param string $creator
+     * @param User $creator
      *
      * @return Content
      */
-    public function setCreator($creator)
+    public function setCreator(User $creator)
     {
         $this->creator = $creator;
 
@@ -119,6 +152,54 @@ abstract class Content
     public function getCreator()
     {
         return $this->creator;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     *
+     * @return Content
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set content
+     *
+     * @param string $content
+     *
+     * @return Content
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * Get content
+     *
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->content;
     }
 
     /**
@@ -155,10 +236,14 @@ abstract class Content
 
     /**
      * @param File $imageFile
+     *
+     * @return Content
      */
     public function setImageFile(File $imageFile)
     {
         $this->imageFile = $imageFile;
+
+        return $this;
     }
 
     /**

@@ -1,11 +1,9 @@
 <div class="col-md-7">
-    <a href="">
-        <h2 class="featurette-heading">
-            {{ post.title }} <span class="text-muted">{{ post.subtitle }}</span>
-        </h2>
+    {% if post.link %}<a href="{{ post.link }}">{% endif %}
+        <h2 class="featurette-heading">{{ post.title }}<span class="text-muted">{{ post.subtitle }}</span></h2>
         <p class="lead">{{ post.content|truncate(500) }}</p>
-        <p>{# post.created_at #}</p>
-    </a>
+        <p>Gepostet am {{ post.createdAt|date("d.m.Y") }} um {{ post.createdAt|date("h:m") }} Uhr</p>
+        {% if post.link %}</a>{% endif %}
     {% if app.user %}
         <a href="{{ path('post_edit', { 'id': post.id }) }}" class="btn btn-default">
             <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>

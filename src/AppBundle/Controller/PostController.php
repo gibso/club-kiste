@@ -67,21 +67,21 @@ class PostController extends Controller
         ));
     }
 
-    /**
-     * Finds and displays a post entity.
-     *
-     * @Route("post/{id}", name="post_show")
-     * @Method("GET")
-     */
-    public function showAction(Post $post)
-    {
-        $deleteForm = $this->createDeleteForm($post);
-
-        return $this->render('post/show.html.twig', array(
-            'post' => $post,
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
+//    /**
+//     * Finds and displays a post entity.
+//     *
+//     * @Route("post/{id}", name="post_show")
+//     * @Method("GET")
+//     */
+//    public function showAction(Post $post)
+//    {
+//        $deleteForm = $this->createDeleteForm($post);
+//
+//        return $this->render('post/show.html.twig', array(
+//            'post' => $post,
+//            'delete_form' => $deleteForm->createView(),
+//        ));
+//    }
 
     /**
      * Displays a form to edit an existing post entity.
