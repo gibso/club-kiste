@@ -18,43 +18,6 @@ use Symfony\Component\HttpFoundation\Response;
 class PostController extends Controller
 {
     /**
-     * @Route("/migration/", name="post_migration")
-     */
-    public function migrateAction(FileUploader $fileUploader)
-    {
-        $con = mysqli_connect('localhost', 'root', 'root', 'kiste-prod-dump');
-        $result = mysqli_query($con, "SELECT * FROM  `news`");
-
-
-        foreach($result as $post){
-
-                $newPost = new Post();
-                $newPost->setTitle(html_entity_decode($post['title']));
-                $newPost->setSubtitle(html_entity_decode($post['subtitle']));
-                $newPost->setContent(html_entity_decode($post['content']));
-                $newPost->setLink($post['linktext']);
-                $newPost->setCreatedAt(new \DateTime($post['datetime']));
-                $newPost->setCreator($this->getUser());
-                $imageFile = new File('/home/oliver/kiste-deprecated/img/news/news_' . $post['news_id'] . '.jpg');
-                $newPost->setImageFile($imageFile);
-                $fileName = $fileUploader->uploadFileTo(
-                    $newPost->getImageFile(), $this->getParameter('images_directory')
-                );
-                $newPost->setImage($fileName);
-
-
-
-                $this->getDoctrine()->getManager()->persist($newPost);
-                $this->getDoctrine()->getManager()->flush($newPost);
-
-
-
-
-
-        }
-    }
-
-    /**
      * Lists all post entities.
      *
      * @Route("/", name="post_index")
