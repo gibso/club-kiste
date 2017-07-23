@@ -3,3 +3,13 @@
 {% block contentFooter %}
     <p>Gepostet am {{ model.createdAt|date("d.m.Y") }} um {{ model.createdAt|date("h:m") }} Uhr</p>
 {% endblock %}
+
+{% block featurette %}
+    {% if model.link is defined %}<a href="{{ model.link }}">{% endif %}
+        <h2 class="featurette-heading">{{ model.title }}<span
+                    class="text-muted"> {{ model.subtitle }}</span>
+        </h2>
+        <p class="lead">{{ model.content|truncate(500) }}</p>
+        <p>Gepostet am: {{ model.createdAt|date("d.m.Y")  }}</p>
+    {% if model.link is defined %}</a>{% endif %}
+{% endblock %}

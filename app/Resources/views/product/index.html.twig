@@ -11,15 +11,23 @@
 
     <div class="row">
         <div class="col-md-offset-4 col-md-2 alkoholfrei">
-            <a href="{{ path('product_index', { 'alcoholic': false }) }}"><h4{% if not alcoholic %} style="font-weight: bold;" {% endif %}>Alkoholfrei</h4></a>
+            <a href="{{ path('product_index', { 'alcoholic': false }) }}">
+                <h4{% if not alcoholic %} style="font-weight: bold;" {% endif %}>Alkoholfrei</h4></a>
         </div>
         <div class="col-md-2 alkohol">
-            <a href="{{ path('product_index', { 'alcoholic': true }) }}"><h4{% if alcoholic %} style="font-weight: bold;" {% endif %}>mit Alkohol</h4>
+            <a href="{{ path('product_index', { 'alcoholic': true }) }}">
+                <h4{% if alcoholic %} style="font-weight: bold;" {% endif %}>mit Alkohol</h4>
             </a>
         </div>
     </div>
 {% endblock %}
 
-{% block contentFooter %}
-    <p>Quelle: {{ model.source }}</p>
+{% block featurette %}
+    <a href="{{ model.link }}">
+        <h2 class="featurette-heading">{{ model.title }}<span
+                    class="text-muted"> {{ model.subtitle }}</span>
+        </h2>
+        <p class="lead">{{ model.content|truncate(500) }}</p>
+        <p>Quelle: {{ model.source }}</p>
+    </a>
 {% endblock %}

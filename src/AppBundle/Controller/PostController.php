@@ -18,6 +18,43 @@ use Symfony\Component\HttpFoundation\Response;
 class PostController extends Controller
 {
     /**
+     * @Route("/migration/", name="post_migration")
+     */
+    public function migrateAction(FileUploader $fileUploader)
+    {
+        $con = mysqli_connect('localhost', 'root', 'root', 'kiste-prod-dump');
+        $result = mysqli_query($con, "SELECT * FROM  `news`");
+
+
+        foreach($result as $post){
+
+                $newPost = new Post();
+                $newPost->setTitle(html_entity_decode($post['title']));
+                $newPost->setSubtitle(html_entity_decode($post['subtitle']));
+                $newPost->setContent(html_entity_decode($post['content']));
+                $newPost->setLink($post['linktext']);
+                $newPost->setCreatedAt(new \DateTime($post['datetime']));
+                $newPost->setCreator($this->getUser());
+                $imageFile = new File('/home/oliver/kiste-deprecated/img/news/news_' . $post['news_id'] . '.jpg');
+                $newPost->setImageFile($imageFile);
+                $fileName = $fileUploader->uploadFileTo(
+                    $newPost->getImageFile(), $this->getParameter('images_directory')
+                );
+                $newPost->setImage($fileName);
+
+
+
+                $this->getDoctrine()->getManager()->persist($newPost);
+                $this->getDoctrine()->getManager()->flush($newPost);
+
+
+
+
+
+        }
+    }
+
+    /**
      * Lists all post entities.
      *
      * @Route("/", name="post_index")
@@ -26,12 +63,12 @@ class PostController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
-        $posts = $em->getRepository('AppBundle:Post')->findAll();
-        return $this->render('post/index.html.twig', array(
+        $posts = $em->getRepository('AppBundle:Post')->findBy([], ['createdAt' => 'DESC']);
+        return $this->render('post/index.html.twig', [
             'models' => $posts,
-            'modelName' => Post::MODEL_NAME
-        ));
+            'modelName' => Post::MODEL_NAME,
+            'active' => 'news'
+        ]);
     }
 
     /**
@@ -58,31 +95,16 @@ class PostController extends Controller
             $em->persist($post);
             $em->flush();
 
-            return $this->redirectToRoute('post_show', array('id' => $post->getId()));
+            return $this->redirectToRoute('post_index');
         }
 
         return $this->render('post/edit.html.twig', array(
             'model' => $post,
             'modelName' => Post::MODEL_NAME,
             'edit_form' => $form->createView(),
+            'active' => 'news'
         ));
     }
-
-//    /**
-//     * Finds and displays a post entity.
-//     *
-//     * @Route("post/{id}", name="post_show")
-//     * @Method("GET")
-//     */
-//    public function showAction(Post $post)
-//    {
-//        $deleteForm = $this->createDeleteForm($post);
-//
-//        return $this->render('post/show.html.twig', array(
-//            'post' => $post,
-//            'delete_form' => $deleteForm->createView(),
-//        ));
-//    }
 
     /**
      * @Route("post/{id}/edit", name="post_edit")
@@ -110,7 +132,7 @@ class PostController extends Controller
 
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('post_show', array('id' => $post->getId()));
+            return $this->redirectToRoute('post_index', array('id' => $post->getId()));
         }
 
         return $this->render('post/edit.html.twig', array(
@@ -118,6 +140,7 @@ class PostController extends Controller
             'modelName' => Post::MODEL_NAME,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'active' => 'news'
         ));
     }
 

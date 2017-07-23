@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Party extends Content implements ContentInterface
 {
+    const MODEL_NAME = 'party';
+
     /**
      * @var \DateTime
      *

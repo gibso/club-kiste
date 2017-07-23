@@ -31,7 +31,8 @@ class ProductController extends Controller
         return $this->render('product/index.html.twig', array(
             'models' => $products,
             'modelName' => Product::MODEL_NAME,
-            'alcoholic' => $alcoholic
+            'alcoholic' => $alcoholic,
+            'active' => 'products'
         ));
     }
 
@@ -66,24 +67,9 @@ class ProductController extends Controller
             'model' => $product,
             'modelName' => Product::MODEL_NAME,
             'edit_form' => $form->createView(),
+            'active' => 'products'
         ));
     }
-
-//    /**
-//     * Finds and displays a product entity.
-//     *
-//     * @Route("/{id}", name="product_show")
-//     * @Method("GET")
-//     */
-//    public function showAction(Product $product)
-//    {
-//        $deleteForm = $this->createDeleteForm($product);
-//
-//        return $this->render('model/show.html.twig', array(
-//            'model' => $product,
-//            'delete_form' => $deleteForm->createView(),
-//        ));
-//    }
 
     /**
      * Displays a form to edit an existing product entity.
@@ -115,6 +101,7 @@ class ProductController extends Controller
             'modelName' => Product::MODEL_NAME,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'active' => 'products'
         ));
     }
 

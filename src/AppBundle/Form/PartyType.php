@@ -6,23 +6,24 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PartyType extends AbstractType
+class PartyType extends ContentType
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    protected function addFieldsToForm()
     {
-        $builder->add('doorsopen')->add('admission')->add('boxoffice')->add('preselling');
+        return ['doorsopen', 'admission', 'boxoffice', 'preselling'];
     }
-    
+
     /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Party'
+            'data_class' => 'AppBundle\Entity\Party',
+            'attr' => [
+                'role' => 'form',
+                'class' => 'form-horizontal'
+            ]
         ));
     }
 
@@ -33,6 +34,4 @@ class PartyType extends AbstractType
     {
         return 'appbundle_party';
     }
-
-
 }

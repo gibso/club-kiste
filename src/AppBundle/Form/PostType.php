@@ -10,13 +10,11 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 class PostType extends ContentType
 {
     /**
-     * @param array $fields
-     *
      * @return array
      */
-    protected function addFieldsToForm(array $fields)
+    protected function addFieldsToForm()
     {
-        return array_merge($fields, ['subtitle', 'link']);
+        return ['subtitle', 'link'];
     }
 
     /**

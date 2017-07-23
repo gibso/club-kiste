@@ -10,13 +10,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ProductType extends ContentType
 {
     /**
-     * @param array $fields
-     *
      * @return array
      */
-    protected function addFieldsToForm(array $fields)
+    protected function addFieldsToForm()
     {
-        return array_merge($fields, ['subtitle', 'link', 'alcoholic', 'source']);
+        return ['subtitle', 'link', 'alcoholic', 'source'];
     }
 
     /**

@@ -1,21 +1,33 @@
-{% extends 'base.html.twig' %}
+{% extends 'model/edit.html.twig' %}
 
-{% block body %}
-    <h1>Party edit</h1>
-
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('party_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+{% block fields %}
+    {{ parent() }}
+    <div class="form-group">
+        {{ form_label(edit_form.doorsopen) }}
+        <div class="col-md-5">
+            {{ form_errors(edit_form.doorsopen) }}
+            {{ form_widget(edit_form.doorsopen) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(edit_form.admission) }}
+        <div class="col-md-5">
+            {{ form_errors(edit_form.admission) }}
+            {{ form_widget(edit_form.admission) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(edit_form.boxoffice) }}
+        <div class="col-md-5">
+            {{ form_errors(edit_form.boxoffice) }}
+            {{ form_widget(edit_form.boxoffice) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(edit_form.preselling) }}
+        <div class="col-md-5">
+            {{ form_errors(edit_form.preselling) }}
+            {{ form_widget(edit_form.preselling) }}
+        </div>
+    </div>
 {% endblock %}
