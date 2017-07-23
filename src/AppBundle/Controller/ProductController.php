@@ -3,9 +3,11 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Product;
+use AppBundle\Service\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Product controller.
@@ -17,17 +19,19 @@ class ProductController extends Controller
     /**
      * Lists all product entities.
      *
-     * @Route("/", name="product_index")
+     * @Route("s/{alcoholic}", defaults={"alcoholic" = false}, name="product_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction($alcoholic = false)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $products = $em->getRepository('AppBundle:Product')->findAll();
+        $products = $em->getRepository('AppBundle:Product')->findBy(['alcoholic' => $alcoholic]);
 
         return $this->render('product/index.html.twig', array(
-            'products' => $products,
+            'models' => $products,
+            'modelName' => Product::MODEL_NAME,
+            'alcoholic' => $alcoholic
         ));
     }
 
@@ -37,41 +41,49 @@ class ProductController extends Controller
      * @Route("/new", name="product_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, FileUploader $fileUploader)
     {
         $product = new Product();
         $form = $this->createForm('AppBundle\Form\ProductType', $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($product->getImageFile()) {
+                $fileName = $fileUploader->uploadFileTo(
+                    $product->getImageFile(), $this->getParameter('images_directory')
+                );
+                $product->setImage($fileName);
+            }
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);
             $em->flush();
 
-            return $this->redirectToRoute('product_show', array('id' => $product->getId()));
+            return $this->redirectToRoute('product_index');
         }
 
-        return $this->render('product/new.html.twig', array(
-            'product' => $product,
-            'form' => $form->createView(),
+        return $this->render('product/edit.html.twig', array(
+            'model' => $product,
+            'modelName' => Product::MODEL_NAME,
+            'edit_form' => $form->createView(),
         ));
     }
 
-    /**
-     * Finds and displays a product entity.
-     *
-     * @Route("/{id}", name="product_show")
-     * @Method("GET")
-     */
-    public function showAction(Product $product)
-    {
-        $deleteForm = $this->createDeleteForm($product);
-
-        return $this->render('product/show.html.twig', array(
-            'product' => $product,
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
+//    /**
+//     * Finds and displays a product entity.
+//     *
+//     * @Route("/{id}", name="product_show")
+//     * @Method("GET")
+//     */
+//    public function showAction(Product $product)
+//    {
+//        $deleteForm = $this->createDeleteForm($product);
+//
+//        return $this->render('model/show.html.twig', array(
+//            'model' => $product,
+//            'delete_form' => $deleteForm->createView(),
+//        ));
+//    }
 
     /**
      * Displays a form to edit an existing product entity.
@@ -79,20 +91,28 @@ class ProductController extends Controller
      * @Route("/{id}/edit", name="product_edit")
      * @Method({"GET", "POST"})
      */
-    public function editAction(Request $request, Product $product)
+    public function editAction(Request $request, Product $product, FileUploader $fileUploader)
     {
         $deleteForm = $this->createDeleteForm($product);
         $editForm = $this->createForm('AppBundle\Form\ProductType', $product);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            if ($product->getImageFile()) {
+                $fileName = $fileUploader->uploadFileTo(
+                    $product->getImageFile(), $this->getParameter('images_directory')
+                );
+                $product->setImage($fileName);
+            }
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('product_edit', array('id' => $product->getId()));
         }
 
         return $this->render('product/edit.html.twig', array(
-            'product' => $product,
+            'model' => $product,
+            'modelName' => Product::MODEL_NAME,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
@@ -130,7 +150,6 @@ class ProductController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('product_delete', array('id' => $product->getId())))
             ->setMethod('DELETE')
-            ->getForm()
-        ;
+            ->getForm();
     }
 }

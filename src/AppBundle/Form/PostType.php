@@ -7,16 +7,16 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 
-class PostType extends AbstractType
+class PostType extends ContentType
 {
     /**
-     * {@inheritdoc}
+     * @param array $fields
+     *
+     * @return array
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    protected function addFieldsToForm(array $fields)
     {
-        $builder->add('title')->add('subtitle')->add('content')->add('imageFile', FileType::class, [
-            'data_class' => null, 'required' => false
-        ]);
+        return array_merge($fields, ['subtitle', 'link']);
     }
 
     /**
@@ -25,7 +25,11 @@ class PostType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Post'
+            'data_class' => 'AppBundle\Entity\Post',
+            'attr' => [
+                'role' => 'form',
+                'class' => 'form-horizontal'
+            ]
         ));
     }
 

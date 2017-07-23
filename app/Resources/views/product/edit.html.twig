@@ -1,21 +1,26 @@
-{% extends 'base.html.twig' %}
+{% extends 'model/edit.html.twig' %}
 
-{% block body %}
-    <h1>Product edit</h1>
-
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('product_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+{% block fields %}
+    {{ parent() }}
+    <div class="form-group">
+        {{ form_label(edit_form.source) }}
+        <div class="col-md-5">
+            {{ form_errors(edit_form.source) }}
+            {{ form_widget(edit_form.source) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(edit_form.link) }}
+        <div class="col-md-5">
+            {{ form_errors(edit_form.link) }}
+            {{ form_widget(edit_form.link) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(edit_form.alcoholic) }}
+        <div class="col-md-5">
+            {{ form_errors(edit_form.alcoholic) }}
+            {{ form_widget(edit_form.alcoholic) }}
+        </div>
+    </div>
 {% endblock %}

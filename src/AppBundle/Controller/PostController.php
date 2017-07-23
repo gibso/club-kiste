@@ -3,12 +3,14 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Post;
+use AppBundle\Service\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Post controller.
@@ -26,8 +28,9 @@ class PostController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $posts = $em->getRepository('AppBundle:Post')->findAll();
-        return $this->render('post/index/layout.html.twig', array(
-            'posts' => $posts,
+        return $this->render('post/index.html.twig', array(
+            'models' => $posts,
+            'modelName' => Post::MODEL_NAME
         ));
     }
 
@@ -37,22 +40,19 @@ class PostController extends Controller
      * @Route("post/new", name="post_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, FileUploader $fileUploader)
     {
         $post = new Post();
         $form = $this->createForm('AppBundle\Form\PostType', $post);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            /** @var UploadedFile $file */
-            $file = $post->getImageFile();
-            $fileName = md5(uniqid()) . '.' . $file->guessExtension();
-            $file->move(
-                $this->getParameter('images_directory'),
-                $fileName
-            );
-            $post->setImage($fileName);
+            if ($post->getImageFile()) {
+                $fileName = $fileUploader->uploadFileTo(
+                    $post->getImageFile(), $this->getParameter('images_directory')
+                );
+                $post->setImage($fileName);
+            }
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($post);
@@ -61,9 +61,10 @@ class PostController extends Controller
             return $this->redirectToRoute('post_show', array('id' => $post->getId()));
         }
 
-        return $this->render('post/new.html.twig', array(
-            'post' => $post,
-            'form' => $form->createView(),
+        return $this->render('post/edit.html.twig', array(
+            'model' => $post,
+            'modelName' => Post::MODEL_NAME,
+            'edit_form' => $form->createView(),
         ));
     }
 
@@ -84,26 +85,25 @@ class PostController extends Controller
 //    }
 
     /**
-     * Displays a form to edit an existing post entity.
-     *
      * @Route("post/{id}/edit", name="post_edit")
      * @Method({"GET", "POST"})
+     *
+     * @param Request $request
+     * @param Post $post
+     * @param FileUploader $fileUploader
+     *
+     * @return Response
      */
-    public function editAction(Request $request, Post $post)
+    public function editAction(Request $request, Post $post, FileUploader $fileUploader)
     {
         $deleteForm = $this->createDeleteForm($post);
         $editForm = $this->createForm('AppBundle\Form\PostType', $post);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-
             if ($post->getImageFile()) {
-                /** @var UploadedFile $file */
-                $file = $post->getImageFile();
-                $fileName = md5(uniqid()) . '.' . $file->guessExtension();
-                $file->move(
-                    $this->getParameter('images_directory'),
-                    $fileName
+                $fileName = $fileUploader->uploadFileTo(
+                    $post->getImageFile(), $this->getParameter('images_directory')
                 );
                 $post->setImage($fileName);
             }
@@ -114,7 +114,8 @@ class PostController extends Controller
         }
 
         return $this->render('post/edit.html.twig', array(
-            'post' => $post,
+            'model' => $post,
+            'modelName' => Post::MODEL_NAME,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));

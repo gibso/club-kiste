@@ -1,0 +1,5 @@
+{% extends 'model/index/layout.html.twig' %}
+
+{% block contentFooter %}
+    <p>Gepostet am {{ model.createdAt|date("d.m.Y") }} um {{ model.createdAt|date("h:m") }} Uhr</p>
+{% endblock %}

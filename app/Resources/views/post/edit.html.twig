@@ -1,21 +1,12 @@
-{% extends 'base.html.twig' %}
+{% extends 'model/edit.html.twig' %}
 
-{% block body %}
-    <h1>Post edit</h1>
-
-    {{ form_start(edit_form) }}
-    {{ form_widget(edit_form) }}
-    <input type="submit" value="Speichern"/>
-    {{ form_end(edit_form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('post_index') }}">Zurück</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-            <input type="submit" value="Löschen">
-            <a href="{{ path('post_index') }}">Back to the list</a>
-        </li>
-    </ul>
+{% block fields %}
+    {{ parent() }}
+    <div class="form-group">
+        {{ form_label(edit_form.link) }}
+        <div class="col-md-5">
+            {{ form_errors(edit_form.link) }}
+            {{ form_widget(edit_form.link) }}
+        </div>
+    </div>
 {% endblock %}

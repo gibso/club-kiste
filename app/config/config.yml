@@ -40,7 +40,7 @@ twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     globals:
-        images_directory: 'uploads/images/'
+        images_directory: '/uploads/images/'
 
 
 # Doctrine Configuration

@@ -1,41 +1,25 @@
-{% extends 'base.html.twig' %}
+{% extends 'model/index/layout.html.twig' %}
 
-{% block body %}
-    <h1>Products list</h1>
+{% block beforeContent %}
+    {% if alcoholic %}
+        <script>
+            if (!confirm("Na, bist du denn überhaupt schon 16 Jahre alt?")) {
+                window.location.href = '/products';
+            }
+        </script>
+    {% endif %}
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Subtitle</th>
-                <th>Link</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for product in products %}
-            <tr>
-                <td><a href="{{ path('product_show', { 'id': product.id }) }}">{{ product.id }}</a></td>
-                <td>{{ product.subtitle }}</td>
-                <td>{{ product.link }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('product_show', { 'id': product.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('product_edit', { 'id': product.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="col-md-offset-4 col-md-2 alkoholfrei">
+            <a href="{{ path('product_index', { 'alcoholic': false }) }}"><h4{% if not alcoholic %} style="font-weight: bold;" {% endif %}>Alkoholfrei</h4></a>
+        </div>
+        <div class="col-md-2 alkohol">
+            <a href="{{ path('product_index', { 'alcoholic': true }) }}"><h4{% if alcoholic %} style="font-weight: bold;" {% endif %}>mit Alkohol</h4>
+            </a>
+        </div>
+    </div>
+{% endblock %}
 
-    <ul>
-        <li>
-            <a href="{{ path('product_new') }}">Create a new product</a>
-        </li>
-    </ul>
+{% block contentFooter %}
+    <p>Quelle: {{ model.source }}</p>
 {% endblock %}

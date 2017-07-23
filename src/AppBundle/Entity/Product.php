@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Product extends Content implements ContentInterface
 {
+    const MODEL_NAME = 'product';
+
     /**
      * @var string
      *
@@ -25,6 +27,20 @@ class Product extends Content implements ContentInterface
      * @ORM\Column(name="link", type="string", length=255, nullable=true)
      */
     private $link;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="alcoholic", type="boolean", nullable=true)
+     */
+    private $alcoholic;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="source", type="string", length=255, nullable=true)
+     */
+    private $source;
 
     /**
      * Set subtitle
@@ -66,6 +82,46 @@ class Product extends Content implements ContentInterface
     public function setLink($link)
     {
         $this->link = $link;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAlcoholic()
+    {
+        return $this->alcoholic;
+    }
+
+    /**
+     * @param bool $alcoholic
+     *
+     * @return Product
+     */
+    public function setAlcoholic($alcoholic)
+    {
+        $this->alcoholic = $alcoholic;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSource()
+    {
+        return $this->source;
+    }
+
+    /**
+     * @param string $source
+     *
+     * @return Product
+     */
+    public function setSource($source)
+    {
+        $this->source = $source;
 
         return $this;
     }

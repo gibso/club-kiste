@@ -3,27 +3,34 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ProductType extends AbstractType
+class ProductType extends ContentType
 {
     /**
-     * {@inheritdoc}
+     * @param array $fields
+     *
+     * @return array
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    protected function addFieldsToForm(array $fields)
     {
-        $builder->add('subtitle')->add('link');
+        return array_merge($fields, ['subtitle', 'link', 'alcoholic', 'source']);
     }
-    
+
     /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Product'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'AppBundle\Entity\Product',
+            'attr' => [
+                'role' => 'form',
+                'class' => 'form-horizontal'
+            ]
+        ]);
     }
 
     /**
