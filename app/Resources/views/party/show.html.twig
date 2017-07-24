@@ -1,44 +1,31 @@
-{% extends 'base.html.twig' %}
+{% extends 'model/show.html.twig' %}
 
-{% block body %}
-    <h1>Party</h1>
+{% block subtitle %}am {{ model.doorsopen|date('d.m.Y') }}{% endblock %}
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ party.id }}</td>
-            </tr>
-            <tr>
-                <th>Doorsopen</th>
-                <td>{% if party.doorsopen %}{{ party.doorsopen|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Admission</th>
-                <td>{{ party.admission }}</td>
-            </tr>
-            <tr>
-                <th>Boxoffice</th>
-                <td>{% if party.boxoffice %}Yes{% else %}No{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Preselling</th>
-                <td>{% if party.preselling %}Yes{% else %}No{% endif %}</td>
-            </tr>
-        </tbody>
-    </table>
+{% block fields %}
+    <tr>
+        <td>Einlass:</td>
+        <td>{{ model.doorsopen|date('H:i') }} Uhr</td>
+    </tr>
+    {% if model.admission is defined %}
+        <tr>
+            <td>Eintritt:</td>
+            <td>{{ model.admission }} €</td>
+        </tr>
+    {% endif %}
 
-    <ul>
-        <li>
-            <a href="{{ path('party_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('party_edit', { 'id': party.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    {% if model.boxoffice is defined %}
+        <tr>
+            <td>Abendkasse:</td>
+            <td>{% if model.boxoffice %}Ja{% else %}Nein{% endif %}</td>
+        </tr>
+    {% endif %}
+
+    {% if model.preselling is defined %}
+        <tr>
+            <td>Vorverkauf:</td>
+            <td>{% if model.preselling %}Ja{% else %}Nein{% endif %}</td>
+        </tr>
+    {% endif %}
+
 {% endblock %}

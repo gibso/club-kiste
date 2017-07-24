@@ -1,0 +1,36 @@
+/* Main marketing message and sign up button */
+.jumbotron h1 {
+	color: #ff0000;
+	font-family: broadway_btregular;
+	font-style: italic;
+	font-size: 50px;
+}
+
+.jumbotron {
+	text-align: center;
+	color: #ffffff;
+	background-color: transparent;
+	text-shadow: black 0.1em 0.1em 0.2em;
+}
+.jumbotron .btn {
+	padding: 14px 24px;
+	font-size: 21px;
+}
+
+/* Featurettes
+ ------------------------- */
+
+.featurette-divider {
+	margin: 80px 0; /* Space out the Bootstrap <hr> more */
+}
+
+/* Thin out the marketing headings */
+.featurette-heading {
+	font-weight: 300;
+	line-height: 1;
+	letter-spacing: -1px;
+}
+.table tbody tr td {
+	font-size: 20px;
+	border: none;
+}

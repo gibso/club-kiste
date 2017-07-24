@@ -80,7 +80,8 @@ class PartyController extends Controller
         return $this->render('party/show.html.twig', [
             'model' => $party,
             'delete_form' => $deleteForm->createView(),
-            'active' => 'party'
+            'active' => 'party',
+            'modelName' => Party::MODEL_NAME
         ]);
     }
 
