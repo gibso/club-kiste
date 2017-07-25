@@ -26,7 +26,7 @@
                                                         data-toggle="dropdown">Events <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li {% if active == 'party' %}class="active"{% endif %}><a href="{{ path('party_index') }}">Partys</a></li>
-                                        <li><a href="menu/kino.php">Kiste-Kino</a></li>
+                                        <li {% if active == 'film' %}class="active"{% endif %}><a href="{{ path('film_index') }}">Kiste-Kino</a></li>
                                         <li><a href="menu/weitere.php">Weitere Events</a></li>
                                     </ul>
                                 </li>

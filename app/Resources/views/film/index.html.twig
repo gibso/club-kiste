@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Films list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Imdbid</th>
+                <th>Showtime</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for film in films %}
+            <tr>
+                <td><a href="{{ path('film_show', { 'id': film.id }) }}">{{ film.id }}</a></td>
+                <td>{{ film.imdbId }}</td>
+                <td>{% if film.showtime %}{{ film.showtime|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('film_show', { 'id': film.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('film_edit', { 'id': film.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('film_new') }}">Create a new film</a>
+        </li>
+    </ul>
+{% endblock %}
