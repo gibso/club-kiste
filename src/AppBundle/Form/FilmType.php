@@ -3,6 +3,7 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,13 +14,14 @@ class FilmType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $fields = ['imdbId', 'showtime'];
-        foreach ($fields as $field) {
-            $builder->add($field, null, [
-                'attr' => ['class' => 'form-control input-md'],
-                'label_attr' => ['class' => 'col-md-4 control-label']
-            ]);
-        }
+        $builder->add('tmdbId', null, [
+            'attr' => ['class' => 'form-control input-md'],
+            'label_attr' => ['class' => 'col-md-4 control-label']
+        ])->add('showtime', DateType::class, [
+            'widget' => 'single_text',
+            'attr' => ['class' => 'form-control input-md'],
+            'label_attr' => ['class' => 'col-md-4 control-label']
+        ]);
     }
 
     /**

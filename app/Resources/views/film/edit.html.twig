@@ -3,24 +3,38 @@
 {% block body %}
     {{ form_start(edit_form) }}
 
+
+
     <fieldset>
         <legend><h1>{{ modelName|capitalize }} bearbeiten</h1></legend>
-
-            <div class="form-group">
-                {{ form_label(edit_form.imdbId) }}
-                <div class="col-md-5">
-                    {{ form_errors(edit_form.imdbId) }}
-                    {{ form_widget(edit_form.imdbId) }}
-                </div>
+        <div class="form-group {% if notFoundError %}has-error has-feedback{% endif %}">
+            {{ form_label(edit_form.tmdbId) }}
+            <div class="col-md-5">
+                {{ form_errors(edit_form.tmdbId) }}
+                {{ form_widget(edit_form.tmdbId) }}
+                {% if notFoundError %}<span class="glyphicon glyphicon-remove form-control-feedback"></span>{% endif %}
             </div>
-            <div class="form-group">
-                {{ form_label(edit_form.showtime) }}
-                <div class="col-md-5">
-                    {{ form_errors(edit_form.showtime) }}
-                    {{ form_widget(edit_form.showtime) }}
-                </div>
+        </div>
+        <div class="form-group">
+            <div class='col-md-offset-5'>
+                {% if notFoundError %}
+                    Diese ID wurde nicht in der API von <a target="_blank" href="https://www.themoviedb.org/">TMDb</a>
+                    gefunden. Suche dort nach dem Film, die ID findest du in der URL der Filmseite.
+                {% endif %}
             </div>
-
+        </div>
+        <div class="form-group">
+            {{ form_label(edit_form.showtime) }}
+            <div class='col-md-5'>
+                {{ form_widget(edit_form.showtime) }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label required" for="appbundle_film_showtime">Showtime</label>
+            <div class="col-md-5">
+                <input type="time" id="appbundle_film_showtime_time" name="showtimetime" required="required" class="form-control input-md" value="{{ film.showtime|date('H:i') }}">
+            </div>
+        </div>
         <div class="form-group">
             <label class="col-md-4 control-label" for="singlebutton"></label>
             <div class="col-md-4">
@@ -32,7 +46,9 @@
     </fieldset>
     {{ form_end(edit_form) }}
 
-    <a class="btn" href="{{ path(modelName ~ '_index') }}">Zurück</a>
+
+
+    <a class="btn btn-default" href="{{ path(modelName ~ '_index') }}">Zurück</a>
     <br>
     {% if delete_form is defined %}
         {{ form_start(delete_form) }}

@@ -19,9 +19,18 @@
     <hr>
     <br> <br>
     {% for model in models %}
+        {% block model %}
         <div class="row featurette">
             {% if loop.index is even %}
-                {{ include ('model/index/image.html.twig') }}
+                {% block image %}
+                    <div class="col-md-5">
+                        <div style="height: 350px; overflow: hidden;">
+                            <img class="featurette-image img-responsive"
+                                 src="{% block imageSrc %}{{ images_directory ~ model.image }}{% endblock %}"
+                                 alt="Generic placeholder image">
+                        </div>
+                    </div>
+                {% endblock %}
             {% endif %}
             <div class="col-md-7">
                 {% block featurette %}{% endblock %}
@@ -32,9 +41,10 @@
                 {% endif %}
             </div>
             {% if loop.index is not even %}
-                {{ include ('model/index/image.html.twig') }}
+                {{ block('image') }}
             {% endif %}
         </div>
         <hr class="featurette-divider"/>
+        {% endblock %}
     {% endfor %}
 {% endblock %}

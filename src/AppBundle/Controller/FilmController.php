@@ -3,9 +3,17 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Film;
+use GuzzleHttp\Exception\RequestException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use \Tmdb\ApiToken;
+use \Tmdb\Client;
+use Tmdb\Exception\NullResponseException;
+use Tmdb\Exception\TmdbApiException;
+use Tmdb\Model\Movie;
+use Tmdb\Repository\MovieRepository;
 
 /**
  * Film controller.
@@ -23,11 +31,13 @@ class FilmController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
         $films = $em->getRepository('AppBundle:Film')->findAll();
+        $tmdbRepo = $this->getTmdbRepository();
 
         return $this->render('film/index.html.twig', array(
-            'films' => $films,
+            'models' => $films,
+            'modelName' => Film::MODEL_NAME,
+            'tmdbRepo' => $tmdbRepo
         ));
     }
 
@@ -42,19 +52,30 @@ class FilmController extends Controller
         $film = new Film();
         $form = $this->createForm('AppBundle\Form\FilmType', $film);
         $form->handleRequest($request);
+        $notFoundError = false;
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($film);
-            $em->flush();
+            $time = \DateTime::createFromFormat('H:i', $request->get('showtimetime'));
+            $film->getShowtime()->setTime($time->format('H'), $time->format('i'));
 
-            return $this->redirectToRoute('film_show', array('id' => $film->getId()));
+            $repository = $this->getTmdbRepository();
+            try {
+                $repository->load($film->getTmdbId());
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($film);
+                $em->flush();
+
+                return $this->redirectToRoute('film_show', array('id' => $film->getId()));
+            } catch (TmdbApiException $error) {
+                $notFoundError = true;
+            }
         }
 
         return $this->render('film/edit.html.twig', array(
             'film' => $film,
             'edit_form' => $form->createView(),
-            'modelName' => Film::MODEL_NAME
+            'modelName' => Film::MODEL_NAME,
+            'notFoundError' => $notFoundError
         ));
     }
 
@@ -67,10 +88,20 @@ class FilmController extends Controller
     public function showAction(Film $film)
     {
         $deleteForm = $this->createDeleteForm($film);
+        $repository = $this->getTmdbRepository();
+        try {
+            $movie = $repository->load($film->getTmdbId(), ['language' => 'de']);
+        } catch (NullResponseException $error) {
+            return $this->render('304.html.twig');
+        } catch (TmdbApiException $error) {
+            return $this->render('304.html.twig');
+        }
 
         return $this->render('film/show.html.twig', array(
-            'film' => $film,
+            'model' => $film,
+            'tmdbMovie' => $movie,
             'delete_form' => $deleteForm->createView(),
+            'modelName' => Film::MODEL_NAME
         ));
     }
 
@@ -85,17 +116,28 @@ class FilmController extends Controller
         $deleteForm = $this->createDeleteForm($film);
         $editForm = $this->createForm('AppBundle\Form\FilmType', $film);
         $editForm->handleRequest($request);
+        $notFoundError = false;
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $time = \DateTime::createFromFormat('H:i', $request->get('showtimetime'));
+            $film->getShowtime()->setTime($time->format('H'), $time->format('i'));
 
-            return $this->redirectToRoute('film_edit', array('id' => $film->getId()));
+            $repository = $this->getTmdbRepository();
+            try {
+                $repository->load($film->getTmdbId());
+                $this->getDoctrine()->getManager()->flush();
+                return $this->redirectToRoute('film_show', array('id' => $film->getId()));
+            } catch (TmdbApiException $error) {
+                $notFoundError = true;
+            }
         }
 
         return $this->render('film/edit.html.twig', array(
             'film' => $film,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'modelName' => Film::MODEL_NAME,
+            'notFoundError' => $notFoundError
         ));
     }
 
@@ -131,7 +173,16 @@ class FilmController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('film_delete', array('id' => $film->getId())))
             ->setMethod('DELETE')
-            ->getForm()
-        ;
+            ->getForm();
+    }
+
+    /**
+     * @return MovieRepository
+     */
+    private function getTmdbRepository()
+    {
+        $token = new ApiToken('ff386fbbd6b6b546ff5f97d8b6584c4d');
+        $client = new Client($token);
+        return new MovieRepository($client);
     }
 }

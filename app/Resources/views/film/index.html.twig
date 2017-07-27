@@ -1,41 +1,19 @@
-{% extends 'base.html.twig' %}
+{% extends 'model/index/layout.html.twig' %}
 
-{% block body %}
-    <h1>Films list</h1>
+{% block model %}
+    {% set tmdbMovie = tmdbRepo.load(model.tmdbId, {'language': 'de'}) %}
+    {{ parent() }}
+{% endblock %}
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Imdbid</th>
-                <th>Showtime</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for film in films %}
-            <tr>
-                <td><a href="{{ path('film_show', { 'id': film.id }) }}">{{ film.id }}</a></td>
-                <td>{{ film.imdbId }}</td>
-                <td>{% if film.showtime %}{{ film.showtime|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('film_show', { 'id': film.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('film_edit', { 'id': film.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+{% block featurette %}
+    <a href="{{ path('film_show', {'id': model.id}) }}">
+        <h2 class="featurette-heading">{{ tmdbMovie.title }}<span
+                    class="text-muted"> {{ model.showtime|date("d.m.Y") }}, {{ model.showtime|date("H:i") }} Uhr</span>
+        </h2>
+        <p class="lead">{{ tmdbMovie.overview|truncate(450) }}</p>
+    </a>
+{% endblock %}
 
-    <ul>
-        <li>
-            <a href="{{ path('film_new') }}">Create a new film</a>
-        </li>
-    </ul>
+{% block imageSrc %}
+    {{ 'http://image.tmdb.org/t/p/w600' ~ tmdbMovie.posterPath }}
 {% endblock %}

@@ -25,9 +25,9 @@ class Film
     /**
      * @var string
      *
-     * @ORM\Column(name="imdbId", type="string", length=255)
+     * @ORM\Column(name="tmdbId", type="string", length=255)
      */
-    private $imdbId;
+    private $tmdbId;
 
     /**
      * @var \DateTime
@@ -47,27 +47,27 @@ class Film
     }
 
     /**
-     * Set imdbId
+     * Set tmdbId
      *
-     * @param string $imdbId
+     * @param string $tmdbId
      *
      * @return Film
      */
-    public function setImdbId($imdbId)
+    public function setTmdbId($tmdbId)
     {
-        $this->imdbId = $imdbId;
+        $this->tmdbId = $tmdbId;
 
         return $this;
     }
 
     /**
-     * Get imdbId
+     * Get tmdbId
      *
      * @return string
      */
-    public function getImdbId()
+    public function getTmdbId()
     {
-        return $this->imdbId;
+        return $this->tmdbId;
     }
 
     /**

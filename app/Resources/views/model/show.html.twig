@@ -24,11 +24,10 @@
 
             <table class="table">
                 <tbody>
+                {% block fields %}{% endblock %}
                 <tr>
                     <td colspan="2">{{ model.content }}</td>
                 </tr>
-                {% block fields %}{% endblock %}
-
                 </tbody>
             </table>
         </div>
