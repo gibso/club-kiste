@@ -1,0 +1,12 @@
+{% extends 'model/edit.html.twig' %}
+
+{% block fields %}
+    {{ parent() }}
+    <div class="form-group">
+        {{ form_label(edit_form.link) }}
+        <div class="col-md-5">
+            {{ form_errors(edit_form.link) }}
+            {{ form_widget(edit_form.link) }}
+        </div>
+    </div>
+{% endblock %}
