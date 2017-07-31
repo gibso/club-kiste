@@ -13,6 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Product extends Content implements ContentInterface
 {
     const MODEL_NAME = 'product';
+    public $modelName = 'product';
+
 
     /**
      * @var string

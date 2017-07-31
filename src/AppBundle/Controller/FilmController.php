@@ -60,7 +60,11 @@ class FilmController extends Controller
 
             $repository = $this->getTmdbRepository();
             try {
-                $repository->load($film->getTmdbId());
+                /** @var Movie $tmdbMovie */
+                $tmdbMovie = $repository->load($film->getTmdbId(), ['language' => 'de']);
+                $film->setTitle($tmdbMovie->getTitle());
+                $film->setContent($tmdbMovie->getOverview());
+                $film->setImage($tmdbMovie->getPosterPath());
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($film);
                 $em->flush();

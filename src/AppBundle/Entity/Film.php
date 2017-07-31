@@ -10,17 +10,11 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="film")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\FilmRepository")
  */
-class Film
+class Film extends Content implements ContentInterface
 {
     const MODEL_NAME = 'film';
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
+
+    public $modelName = 'film';
 
     /**
      * @var string
@@ -35,16 +29,6 @@ class Film
      * @ORM\Column(name="showtime", type="datetime")
      */
     private $showtime;
-
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * Set tmdbId
@@ -92,6 +76,11 @@ class Film
     public function getShowtime()
     {
         return $this->showtime;
+    }
+
+    public function getSubtitle()
+    {
+        return $this->getShowtime()->format('d.m.Y') . ', ' . $this->getShowtime()->format('H:i') . ' Uhr.';
     }
 }
 

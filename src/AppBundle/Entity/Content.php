@@ -9,41 +9,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Content
  *
- * @ORM\HasLifecycleCallbacks
  * @ORM\MappedSuperclass
  */
-abstract class Content
+abstract class Content extends Entity
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="created_at", type="datetime", nullable=true)
-     */
-    private $createdAt;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
-     */
-    private $updatedAt;
-
-    /**
-     * @var User
-     *
-     * @ORM\ManyToOne(targetEntity="User")
-     */
-    private $creator;
-
     /**
      * @var string
      *
@@ -73,86 +42,9 @@ abstract class Content
     private $imageFile;
 
     /**
-     * Get id
-     *
-     * @return int
+     * @var String
      */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     *
-     * @return Content
-     */
-    public function setCreatedAt(\DateTime $createdAt)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * Get createdAt
-     *
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * Set updatedAt
-     *
-     * @param \DateTime $updatedAt
-     *
-     * @return Content
-     */
-    public function setUpdatedAt(\DateTime $updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get updatedAt
-     *
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-    }
-
-    /**
-     * Set creator
-     *
-     * @param User $creator
-     *
-     * @return Content
-     */
-    public function setCreator(User $creator)
-    {
-        $this->creator = $creator;
-
-        return $this;
-    }
-
-    /**
-     * Get creator
-     *
-     * @return User
-     */
-    public function getCreator()
-    {
-        return $this->creator;
-    }
+    public $modelName;
 
     /**
      * Set title
@@ -247,16 +139,11 @@ abstract class Content
     }
 
     /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
+     * @return null
      */
-    public function updatedTimestamps()
+    public function getSubtitle()
     {
-        $this->setUpdatedAt(new \DateTime('now'));
-
-        if ($this->getCreatedAt() == null) {
-            $this->setCreatedAt(new \DateTime('now'));
-        }
+        return null;
     }
 }
 

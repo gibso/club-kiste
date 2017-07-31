@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Content;
 use AppBundle\Entity\Post;
 use AppBundle\Service\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -26,9 +27,25 @@ class PostController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $posts = $em->getRepository('AppBundle:Post')->findBy([], ['createdAt' => 'DESC']);
+        $posts = $em->getRepository('AppBundle:Post')->findBy([], ['updatedAt' => 'DESC']);
+        $films = $em->getRepository('AppBundle:Film')->findBy([], ['updatedAt' => 'DESC']);
+        $partys = $em->getRepository('AppBundle:Party')->findBy([], ['updatedAt' => 'DESC']);
+        $products = $em->getRepository('AppBundle:Product')->findBy([], ['updatedAt' => 'DESC']);
+        $partner = $em->getRepository('AppBundle:Partner')->findBy([], ['updatedAt' => 'DESC']);
+
+
+        $content = array_merge($posts, $films, $partys, $products, $partner);
+
+        /**
+         * @var Content $value
+         */
+        foreach ($content as $key => $value){
+            $order[] = $value->getUpdatedAt();
+        }
+        array_multisort($order, SORT_DESC, $content);
+
         return $this->render('post/index.html.twig', [
-            'models' => $posts,
+            'models' => $content,
             'modelName' => Post::MODEL_NAME,
             'active' => 'news'
         ]);

@@ -13,6 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Post extends Content implements ContentInterface
 {
     const MODEL_NAME = 'post';
+    public $modelName = 'post';
+
 
     /**
      * @var string

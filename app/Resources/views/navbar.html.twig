@@ -19,15 +19,23 @@
                     <div class="navbar-collapse collapse">
                         <div class="col-xs-12 col-sm-6 col-md-5 col-lg-5">
                             <ul class="nav navbar-nav">
-                                <li {% if active == 'news' %}class="active"{% endif %}><a href="{{ path('post_index') }}">Aktuelles</a></li>
-
-                                <li {% if active == 'products' %}class="active"{% endif %}><a href="{{ path('product_index', { 'alcoholic': false }) }}">Sortiment</a></li>
-                                <li class="{% if active == 'party' %}active{% endif %} dropdown"><a href="#" class="dropdown-toggle"
-                                                        data-toggle="dropdown">Events <span class="caret"></span></a>
+                                <li {% if active == 'news' %}class="active"{% endif %}>
+                                    <a href="{{ path('post_index') }}">Aktuelles</a>
+                                </li>
+                                <li {% if active == 'party' %}class="active"{% endif %}>
+                                    <a href="{{ path('party_index') }}">Partys</a>
+                                </li>
+                                <li {% if active == 'cinema' %}class="active"{% endif %}>
+                                    <a href="{{ path('film_index') }}">Kino</a>
+                                </li>
+                                <li class="{% if active == 'party' %}active{% endif %} dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Events
+                                        <span class="caret"></span>
+                                    </a>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li {% if active == 'party' %}class="active"{% endif %}><a href="{{ path('party_index') }}">Partys</a></li>
-                                        <li {% if active == 'film' %}class="active"{% endif %}><a href="{{ path('film_index') }}">Kiste-Kino</a></li>
-                                        <li><a href="menu/weitere.php">Weitere Events</a></li>
+                                        <li><a href="">Sprechcafé</a></li>
+                                        <li><a href="">Spieleabend</a></li>
+                                        <li><a href="">Kickerturnier</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -38,8 +46,15 @@
                         </div>
                         <div class="col-xs-12 col-sm-4 col-md-5 col-lg-5">
                             <ul class="nav navbar-nav navbar-right">
-                                <li><a href="{{ path('partner_index') }}">Partner</a></li>
-                                <li><a href="menu/impressum.php">Impressum</a></li>
+                                <li {% if active == 'products' %}class="active"{% endif %}>
+                                    <a href="{{ path('product_index', { 'alcoholic': false }) }}">Sortiment</a>
+                                </li>
+                                <li {% if active == 'partner' %}class="active"{% endif %}>
+                                    <a href="{{ path('partner_index') }}">Partner</a>
+                                </li>
+                                <li {% if active == 'about' %}class="active"{% endif %}>
+                                    <a href="{{ path('about') }}">Impressum</a>
+                                </li>
                             </ul>
                         </div>
                     </div>

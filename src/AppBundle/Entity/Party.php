@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Party extends Content implements ContentInterface
 {
     const MODEL_NAME = 'party';
+    public $modelName = 'party';
 
     /**
      * @var \DateTime
@@ -136,6 +137,11 @@ class Party extends Content implements ContentInterface
     public function getPreselling()
     {
         return $this->preselling;
+    }
+
+    public function getSubtitle()
+    {
+        return $this->getDoorsopen()->format('d.m.Y') . ', ' . $this->getDoorsopen()->format('H:i') . ' Uhr.';
     }
 }
 

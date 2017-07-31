@@ -2,8 +2,6 @@
 
 namespace AppBundle\Entity;
 
-use Symfony\Component\HttpFoundation\File\File;
-
 /**
  * Interface ContentInterface
  */
@@ -15,23 +13,9 @@ interface ContentInterface
     public function getId();
 
     /**
-     * @param \DateTime $createdAt
-     *
-     * @return ContentInterface
-     */
-    public function setCreatedAt(\DateTime $createdAt);
-
-    /**
      * @return \DateTime
      */
     public function getCreatedAt();
-
-    /**
-     * @param \DateTime $updatedAt
-     *
-     * @return ContentInterface
-     */
-    public function setUpdatedAt(\DateTime $updatedAt);
 
     /**
      * @return \DateTime
@@ -39,23 +23,9 @@ interface ContentInterface
     public function getUpdatedAt();
 
     /**
-     * @param User $creator
-     *
-     * @return ContentInterface
-     */
-    public function setCreator(User $creator);
-
-    /**
      * @return User
      */
     public function getCreator();
-
-    /**
-     * @param string $title
-     *
-     * @return ContentInterface
-     */
-    public function setTitle($title);
 
     /**
      * @return string
@@ -63,11 +33,9 @@ interface ContentInterface
     public function getTitle();
 
     /**
-     * @param string $content
-     *
-     * @return ContentInterface
+     * @return string
      */
-    public function setContent($content);
+    public function getSubtitle();
 
     /**
      * @return string
@@ -75,27 +43,8 @@ interface ContentInterface
     public function getContent();
 
     /**
-     * @param string $image
-     *
-     * @return ContentInterface
-     */
-    public function setImage($image);
-
-    /**
      * @return string
      */
     public function getImage();
-
-    /**
-     * @param File $imageFile
-     *
-     * @return ContentInterface
-     */
-    public function setImageFile(File $imageFile);
-
-    /**
-     * @return File
-     */
-    public function getImageFile();
 }
 

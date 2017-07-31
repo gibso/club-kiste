@@ -10,9 +10,11 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="partner")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PartnerRepository")
  */
-class Partner extends Content
+class Partner extends Content implements ContentInterface
 {
     const MODEL_NAME = 'partner';
+    public $modelName = 'partner';
+
     /**
      * @var string
      *
