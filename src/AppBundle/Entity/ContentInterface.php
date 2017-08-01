@@ -46,5 +46,10 @@ interface ContentInterface
      * @return string
      */
     public function getImage();
+
+    /**
+     * @return string
+     */
+    public function getModelName();
 }
 

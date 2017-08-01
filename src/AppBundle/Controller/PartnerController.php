@@ -93,7 +93,7 @@ class PartnerController extends Controller
         }
 
         return $this->render('partner/edit.html.twig', array(
-            'partner' => $partner,
+            'model' => $partner,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
             'modelName' => Partner::MODEL_NAME,

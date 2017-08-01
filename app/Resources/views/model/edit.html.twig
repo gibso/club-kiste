@@ -4,7 +4,7 @@
     {{ form_start(edit_form) }}
 
     <fieldset>
-        <legend><h1>{{ modelName|capitalize }} bearbeiten</h1></legend>
+        <legend><h1>{{ model.modelname|capitalize }} bearbeiten</h1></legend>
 
         {% block fields %}
             <div class="form-group">
@@ -50,12 +50,12 @@
     </fieldset>
     {{ form_end(edit_form) }}
 
-    <a class="btn" href="{{ path(modelName ~ '_index') }}">Zurück</a>
+    <a class="btn" href="{{ path(model.modelname ~ '_index') }}">Zurück</a>
     <br>
     {% if delete_form is defined %}
         {{ form_start(delete_form) }}
         <button id="singlebutton" name="singlebutton" type="submit"
-                class="btn btn-danger">{{ modelName|capitalize }} löschen
+                class="btn btn-danger">{{ model.modelname|capitalize }} löschen
         </button>
         {{ form_end(delete_form) }}
     {% endif %}

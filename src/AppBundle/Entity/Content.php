@@ -42,11 +42,6 @@ abstract class Content extends Entity
     private $imageFile;
 
     /**
-     * @var String
-     */
-    public $modelName;
-
-    /**
      * Set title
      *
      * @param string $title
@@ -136,14 +131,6 @@ abstract class Content extends Entity
         $this->imageFile = $imageFile;
 
         return $this;
-    }
-
-    /**
-     * @return null
-     */
-    public function getSubtitle()
-    {
-        return null;
     }
 }
 

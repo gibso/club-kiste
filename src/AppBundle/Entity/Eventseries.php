@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="eventseries")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\EventseriesRepository")
  */
-class Eventseries extends Content
+class Eventseries extends Content implements ContentInterface
 {
     /**
      * @var Event
@@ -21,7 +21,6 @@ class Eventseries extends Content
      * @ORM\OneToMany(targetEntity="Event", mappedBy="series")
      */
     private $events;
-        
 
     /**
      * Constructor
@@ -63,5 +62,21 @@ class Eventseries extends Content
     public function getEvents()
     {
         return $this->events;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSubtitle()
+    {
+        return null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getModelName()
+    {
+        return 'eventseries';
     }
 }

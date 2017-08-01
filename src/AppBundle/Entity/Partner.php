@@ -41,5 +41,21 @@ class Partner extends Content implements ContentInterface
 
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getSubtitle()
+    {
+        return null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getModelName()
+    {
+        return 'partner';
+    }
 }
 

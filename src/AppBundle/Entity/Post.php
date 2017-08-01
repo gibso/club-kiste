@@ -12,10 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Post extends Content implements ContentInterface
 {
-    const MODEL_NAME = 'post';
-    public $modelName = 'post';
-
-
     /**
      * @var string
      *
@@ -72,6 +68,14 @@ class Post extends Content implements ContentInterface
         $this->link = $link;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getModelName()
+    {
+        return 'post';
     }
 }
 

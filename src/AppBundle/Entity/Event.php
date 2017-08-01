@@ -89,7 +89,7 @@ class Event extends Entity implements ContentInterface
      */
     public function getSubtitle()
     {
-        $this->getSeries()->getSubtitle();
+        return null;
     }
 
     /**
@@ -106,5 +106,13 @@ class Event extends Entity implements ContentInterface
     public function getImage()
     {
         $this->getSeries()->getImage();
+    }
+
+    /**
+     * @return string
+     */
+    public function getModelName()
+    {
+        return 'event';
     }
 }

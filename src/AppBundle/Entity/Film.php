@@ -12,10 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Film extends Content implements ContentInterface
 {
-    const MODEL_NAME = 'film';
-
-    public $modelName = 'film';
-
     /**
      * @var string
      *
@@ -81,6 +77,14 @@ class Film extends Content implements ContentInterface
     public function getSubtitle()
     {
         return $this->getShowtime()->format('d.m.Y') . ', ' . $this->getShowtime()->format('H:i') . ' Uhr.';
+    }
+
+    /**
+     * @return string
+     */
+    public function getModelName()
+    {
+        return 'film';
     }
 }
 
