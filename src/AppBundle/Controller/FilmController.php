@@ -36,7 +36,7 @@ class FilmController extends Controller
 
         return $this->render('film/index.html.twig', array(
             'models' => $films,
-            'modelName' => Film::MODEL_NAME,
+            'modelName' => 'film',
             'tmdbRepo' => $tmdbRepo
         ));
     }
@@ -104,8 +104,7 @@ class FilmController extends Controller
         return $this->render('film/show.html.twig', array(
             'model' => $film,
             'tmdbMovie' => $movie,
-            'delete_form' => $deleteForm->createView(),
-            'modelName' => Film::MODEL_NAME
+            'delete_form' => $deleteForm->createView()
         ));
     }
 

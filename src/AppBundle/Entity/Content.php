@@ -132,5 +132,13 @@ abstract class Content extends Entity
 
         return $this;
     }
+
+    public function getModelName()
+    {
+        $fullClassName = get_class($this);
+        $modelName = substr($fullClassName, strrpos($fullClassName, "\\") + 1);
+        return strtolower($modelName);
+
+    }
 }
 

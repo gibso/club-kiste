@@ -46,7 +46,7 @@ class PostController extends Controller
 
         return $this->render('post/index.html.twig', [
             'models' => $content,
-            'modelName' => Post::MODEL_NAME,
+            'modelName' => 'post',
             'active' => 'news'
         ]);
     }

@@ -123,13 +123,5 @@ class Product extends Content implements ContentInterface
 
         return $this;
     }
-
-    /**
-     * @return string
-     */
-    public function getModelName()
-    {
-        return 'product';
-    }
 }
 

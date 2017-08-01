@@ -69,13 +69,5 @@ class Post extends Content implements ContentInterface
 
         return $this;
     }
-
-    /**
-     * @return string
-     */
-    public function getModelName()
-    {
-        return 'post';
-    }
 }
 

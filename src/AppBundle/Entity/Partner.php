@@ -49,13 +49,5 @@ class Partner extends Content implements ContentInterface
     {
         return null;
     }
-
-    /**
-     * @return string
-     */
-    public function getModelName()
-    {
-        return 'partner';
-    }
 }
 

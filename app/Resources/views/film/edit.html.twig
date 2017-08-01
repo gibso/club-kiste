@@ -6,7 +6,7 @@
 
 
     <fieldset>
-        <legend><h1>{{ modelName|capitalize }} bearbeiten</h1></legend>
+        <legend><h1>{{ model.modelName|capitalize }} bearbeiten</h1></legend>
         <div class="form-group {% if notFoundError %}has-error has-feedback{% endif %}">
             {{ form_label(edit_form.tmdbId) }}
             <div class="col-md-5">
@@ -48,12 +48,12 @@
 
 
 
-    <a class="btn btn-default" href="{{ path(modelName ~ '_index') }}">Zurück</a>
+    <a class="btn btn-default" href="{{ path(model.modelName ~ '_index') }}">Zurück</a>
     <br>
     {% if delete_form is defined %}
         {{ form_start(delete_form) }}
         <button id="singlebutton" name="singlebutton" type="submit"
-                class="btn btn-danger">{{ modelName|capitalize }} löschen
+                class="btn btn-danger">{{ model.modelName|capitalize }} löschen
         </button>
         {{ form_end(delete_form) }}
     {% endif %}

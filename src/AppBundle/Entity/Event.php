@@ -107,12 +107,4 @@ class Event extends Entity implements ContentInterface
     {
         $this->getSeries()->getImage();
     }
-
-    /**
-     * @return string
-     */
-    public function getModelName()
-    {
-        return 'event';
-    }
 }

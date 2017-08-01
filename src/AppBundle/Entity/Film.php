@@ -78,13 +78,5 @@ class Film extends Content implements ContentInterface
     {
         return $this->getShowtime()->format('d.m.Y') . ', ' . $this->getShowtime()->format('H:i') . ' Uhr.';
     }
-
-    /**
-     * @return string
-     */
-    public function getModelName()
-    {
-        return 'film';
-    }
 }
 

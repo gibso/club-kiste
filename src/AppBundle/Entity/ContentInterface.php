@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Entity;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Interface ContentInterface
@@ -46,6 +47,17 @@ interface ContentInterface
      * @return string
      */
     public function getImage();
+
+    /**
+     * @param string $image
+     * @return ContentInterface
+     */
+    public function setImage($image);
+
+    /**
+     * @return File
+     */
+    public function getImageFile();
 
     /**
      * @return string

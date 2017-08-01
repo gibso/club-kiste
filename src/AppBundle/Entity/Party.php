@@ -140,13 +140,5 @@ class Party extends Content implements ContentInterface
     {
         return $this->getDoorsopen()->format('d.m.Y') . ', ' . $this->getDoorsopen()->format('H:i') . ' Uhr.';
     }
-
-    /**
-     * @return string
-     */
-    public function getModelName()
-    {
-        return 'party';
-    }
 }
 
