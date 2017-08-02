@@ -3,8 +3,6 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Film;
-use GuzzleHttp\Exception\RequestException;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,38 +14,37 @@ use Tmdb\Model\Movie;
 use Tmdb\Repository\MovieRepository;
 
 /**
- * Film controller.
- *
+ * Class FilmController
+ * @package AppBundle\Controller
  * @Route("film")
  */
-class FilmController extends Controller
+class FilmController extends ContentController
 {
     /**
-     * Lists all film entities.
-     *
+     * @return string
+     */
+    protected function getModelClass()
+    {
+        return Film::class;
+    }
+
+    /**
      * @Route("/", name="film_index")
      * @Method("GET")
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $films = $em->getRepository('AppBundle:Film')->findAll();
-        $tmdbRepo = $this->getTmdbRepository();
-
-        return $this->render('film/index.html.twig', array(
-            'models' => $films,
-            'modelName' => 'film',
-            'tmdbRepo' => $tmdbRepo
-        ));
+        return $this->render($this->getModelName() . '/index.html.twig', array_merge($this->getParams(), [
+            'models' => $this->getModelRepository()->findAll(),
+            'tmdbRepo' => $this->getTmdbRepository()
+        ]));
     }
 
     /**
-     * Creates a new film entity.
-     *
      * @Route("/new", name="film_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newFilmAction(Request $request)
     {
         $film = new Film();
         $form = $this->createForm('AppBundle\Form\FilmType', $film);
@@ -75,17 +72,14 @@ class FilmController extends Controller
             }
         }
 
-        return $this->render('film/edit.html.twig', array(
-            'film' => $film,
+        return $this->render($film->getModelName() . '/edit.html.twig', array_merge($this->getParams(), [
+            'model' => $film,
             'edit_form' => $form->createView(),
-            'modelName' => Film::MODEL_NAME,
             'notFoundError' => $notFoundError
-        ));
+        ]));
     }
 
     /**
-     * Finds and displays a film entity.
-     *
      * @Route("/{id}", name="film_show")
      * @Method("GET")
      */
@@ -101,16 +95,14 @@ class FilmController extends Controller
             return $this->render('304.html.twig');
         }
 
-        return $this->render('film/show.html.twig', array(
+        return $this->render($this->getModelName() . '/show.html.twig', array_merge($this->getParams(), [
             'model' => $film,
-            'tmdbMovie' => $movie,
-            'delete_form' => $deleteForm->createView()
-        ));
+            'delete_form' => $deleteForm->createView(),
+            'tmdbMovie' => $movie
+        ]));
     }
 
     /**
-     * Displays a form to edit an existing film entity.
-     *
      * @Route("/{id}/edit", name="film_edit")
      * @Method({"GET", "POST"})
      */
@@ -135,48 +127,21 @@ class FilmController extends Controller
             }
         }
 
-        return $this->render('film/edit.html.twig', array(
-            'film' => $film,
+        return $this->render($this->getModelName() . '/edit.html.twig', array_merge($this->getParams(), [
+            'model' => $film,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'modelName' => Film::MODEL_NAME,
             'notFoundError' => $notFoundError
-        ));
+        ]));
     }
 
     /**
-     * Deletes a film entity.
-     *
      * @Route("/{id}", name="film_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Film $film)
     {
-        $form = $this->createDeleteForm($film);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($film);
-            $em->flush();
-        }
-
-        return $this->redirectToRoute('film_index');
-    }
-
-    /**
-     * Creates a form to delete a film entity.
-     *
-     * @param Film $film The film entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm(Film $film)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('film_delete', array('id' => $film->getId())))
-            ->setMethod('DELETE')
-            ->getForm();
+        return parent::delete($request, $film);
     }
 
     /**

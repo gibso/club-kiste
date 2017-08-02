@@ -9,12 +9,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Product controller.
- *
+ * Class ProductController
+ * @package AppBundle\Controller
  * @Route("product")
  */
 class ProductController extends ContentController
 {
+    /**
+     * @return string
+     */
     protected function getModelClass()
     {
         return Product::class;
@@ -26,15 +29,11 @@ class ProductController extends ContentController
      */
     public function indexAction($alcoholic = false)
     {
-        $em = $this->getDoctrine()->getManager();
-        $products = $em->getRepository('AppBundle:Product')->findBy(['alcoholic' => $alcoholic]);
-
-        return $this->render('product/index.html.twig', array(
+        $products = $this->getDoctrine()->getRepository('AppBundle:Product')->findBy(['alcoholic' => $alcoholic]);
+        return $this->render($this->getModelName() . '/index.html.twig', array_merge($this->getParams(), [
             'models' => $products,
-            'modelName' => $this->getModelName(),
-            'active' => 'products',
             'alcoholic' => $alcoholic
-        ));
+        ]));
     }
 
     /**
@@ -61,6 +60,6 @@ class ProductController extends ContentController
      */
     public function deleteAction(Request $request, Product $product)
     {
-      return $this->delete($request, $product);
+        return $this->delete($request, $product);
     }
 }

@@ -9,20 +9,21 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Partner controller.
- *
+ * Class PartnerController
+ * @package AppBundle\Controller
  * @Route("partner")
  */
 class PartnerController extends ContentController
 {
+    /**
+     * @return string
+     */
     protected function getModelClass()
     {
         return Partner::class;
     }
 
     /**
-     * Lists all partner entities.
-     *
      * @Route("/", name="partner_index")
      * @Method("GET")
      */

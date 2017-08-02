@@ -6,51 +6,80 @@ use AppBundle\Entity\Content;
 use AppBundle\Entity\ContentInterface;
 use AppBundle\Entity\Partner;
 use AppBundle\Entity\Party;
+use AppBundle\Entity\Post;
 use AppBundle\Entity\Product;
 use AppBundle\Service\FileUploader;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class ContentController
+ * @package AppBundle\Controller
+ */
 abstract class ContentController extends Controller
 {
     /**
      * @return ObjectRepository
      */
-    private function getModelRepository()
+    protected function getModelRepository()
     {
         return $this->getDoctrine()->getManager()->getRepository($this->getModelClass());
     }
 
+    /**
+     * @return string
+     */
     protected function getModelClass()
     {
         return Content::class;
     }
 
+    /**
+     * @return string
+     */
     protected function getModelName()
     {
         return strtolower(substr($this->getModelClass(), strrpos($this->getModelClass(), "\\") + 1));
 
     }
 
+    /**
+     * @return string
+     */
     protected function getActiveNavi()
     {
-        $this->getModelName();
+        return $this->getModelName();
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return array
+     */
+    protected function getParams()
+    {
+        return [
+            'active' => $this->getActiveNavi(),
+            'modelName' => $this->getModelName()
+        ];
+    }
+
+    /**
+     * @return Response
      */
     public function indexAction()
     {
-        $models = $this->getModelRepository()->findAll();
-        return $this->render($this->getModelName() . '/index.html.twig', array(
-            'models' => $models,
-            'active' => $this->getActiveNavi(),
-            'modelName' => $this->getModelName()
-        ));
+        return $this->render($this->getModelName() . '/index.html.twig', array_merge($this->getParams(), [
+            'models' => $this->getModelRepository()->findAll()
+        ]));
     }
 
+    /**
+     * @param Request $request
+     * @param FileUploader $fileUploader
+     * @return RedirectResponse|Response
+     */
     public function newAction(Request $request, FileUploader $fileUploader)
     {
         $content = $this->createNewContent();
@@ -71,25 +100,31 @@ abstract class ContentController extends Controller
             return $this->redirectToRoute($this->getModelName() . '_index');
         }
 
-        return $this->render($content->getModelName() . '/edit.html.twig', array(
+        return $this->render($content->getModelName() . '/edit.html.twig', array_merge($this->getParams(), [
             'model' => $content,
             'edit_form' => $form->createView(),
-            'modelName' => $this->getModelName(),
-            'active' => 'partner'
-        ));
+        ]));
     }
 
+    /**
+     * @param ContentInterface $content
+     * @return Response
+     */
     public function show(ContentInterface $content)
     {
         $deleteForm = $this->createDeleteForm($content);
-        return $this->render('party/show.html.twig', [
+        return $this->render($this->getModelName() . '/show.html.twig', array_merge($this->getParams(), [
             'model' => $content,
-            'delete_form' => $deleteForm->createView(),
-            'active' => $this->getActiveNavi(),
-            'modelName' => $this->getModelName()
-        ]);
+            'delete_form' => $deleteForm->createView()
+        ]));
     }
 
+    /**
+     * @param Request $request
+     * @param ContentInterface $content
+     * @param FileUploader $fileUploader
+     * @return RedirectResponse|Response
+     */
     public function edit(Request $request, ContentInterface $content, FileUploader $fileUploader)
     {
         $deleteForm = $this->createDeleteForm($content);
@@ -109,13 +144,11 @@ abstract class ContentController extends Controller
             return $this->redirectToRoute($content->getModelName() . '_edit', array('id' => $content->getId()));
         }
 
-        return $this->render($this->getModelName() . '/edit.html.twig', array(
+        return $this->render($this->getModelName() . '/edit.html.twig', array_merge($this->getParams(), [
             'model' => $content,
             'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-            'modelName' => $content->getModelName(),
-            'active' => $this->getActiveNavi()
-        ));
+            'delete_form' => $deleteForm->createView()
+        ]));
     }
 
     /**
@@ -133,14 +166,14 @@ abstract class ContentController extends Controller
         if ($this->getModelClass() === Party::class) {
             return new Party();
         }
+        if ($this->getModelClass() === Post::class) {
+            return new Post();
+        }
         throw new \Exception('The Creator for ' . $this->getModelName() . ' is not implemented yet');
     }
 
     /**
-     * Creates a form to delete a content entity.
-     *
      * @param ContentInterface $content
-     *
      * @return \Symfony\Component\Form\Form The form
      */
     protected function createDeleteForm(ContentInterface $content)
@@ -151,7 +184,11 @@ abstract class ContentController extends Controller
             ->getForm();
     }
 
-
+    /**
+     * @param Request $request
+     * @param ContentInterface $content
+     * @return RedirectResponse
+     */
     public function delete(Request $request, ContentInterface $content)
     {
         $form = $this->createDeleteForm($content);

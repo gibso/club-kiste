@@ -9,8 +9,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Party controller.
- *
+ * Class PartyController
+ * @package AppBundle\Controller
  * @Route("party")
  */
 class PartyController extends ContentController
