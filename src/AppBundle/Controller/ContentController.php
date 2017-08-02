@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Content;
 use AppBundle\Entity\ContentInterface;
+use AppBundle\Entity\Eventseries;
 use AppBundle\Entity\Partner;
 use AppBundle\Entity\Party;
 use AppBundle\Entity\Post;
@@ -61,7 +62,8 @@ abstract class ContentController extends Controller
     {
         return [
             'active' => $this->getActiveNavi(),
-            'modelName' => $this->getModelName()
+            'modelName' => $this->getModelName(),
+            'eventseries' => $this->getDoctrine()->getManager()->getRepository(Eventseries::class)->findAll()
         ];
     }
 
@@ -168,6 +170,9 @@ abstract class ContentController extends Controller
         }
         if ($this->getModelClass() === Post::class) {
             return new Post();
+        }
+        if ($this->getModelClass() === Eventseries::class){
+            return new Eventseries();
         }
         throw new \Exception('The Creator for ' . $this->getModelName() . ' is not implemented yet');
     }

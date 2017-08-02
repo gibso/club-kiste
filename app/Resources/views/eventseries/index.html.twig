@@ -1,37 +1,3 @@
-{% extends 'base.html.twig' %}
+{% extends 'model/index/layout.html.twig' %}
 
-{% block body %}
-    <h1>Eventseries list</h1>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for eventseries in eventseries %}
-            <tr>
-                <td><a href="{{ path('eventseries_show', { 'id': eventseries.id }) }}">{{ eventseries.id }}</a></td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('eventseries_show', { 'id': eventseries.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('eventseries_edit', { 'id': eventseries.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('eventseries_new') }}">Create a new eventseries</a>
-        </li>
-    </ul>
-{% endblock %}

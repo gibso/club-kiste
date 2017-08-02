@@ -107,4 +107,21 @@ class Event extends Entity implements ContentInterface
     {
         $this->getSeries()->getImage();
     }
+
+    /**
+     * @param string $image
+     * @return ContentInterface
+     */
+    public function setImage($image)
+    {
+        $this->getSeries()->setImage($image);
+    }
+
+    /**
+     * @return File
+     */
+    public function getImageFile()
+    {
+        $this->getSeries()->getImage();
+    }
 }

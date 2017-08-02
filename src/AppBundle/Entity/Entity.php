@@ -126,6 +126,14 @@ abstract class Entity
         return $this->creator;
     }
 
+
+    public function getModelName()
+    {
+        $fullClassName = get_class($this);
+        $modelName = substr($fullClassName, strrpos($fullClassName, "\\") + 1);
+        return strtolower($modelName);
+    }
+
     /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
