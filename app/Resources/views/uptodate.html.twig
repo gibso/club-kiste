@@ -1,0 +1,29 @@
+{% extends 'model/index/layout.html.twig' %}
+
+{% block beforeContent %}{% endblock %}
+
+{% block featurette %}
+    <a href="
+{% if model.modelName == 'post' or model.modelName == 'partner' or model.modelName == 'product' %}
+{{ model.link }}
+{% elseif model.modelName == 'event' %}
+{{ path('eventseries_show', {'id': model.series.id}) }}
+{% else %}
+{{ path( model.modelName ~ '_show', {'id': model.id}) }}
+{% endif %}">
+        <h2 class="featurette-heading">{{ model.title }}.<span
+                    class="text-muted"> {{ model.subtitle }}</span>
+        </h2>
+        <p class="lead">{{ model.content|truncate(500) }}</p>
+        <p>{{ model.modelName }} Gepostet am: {{ model.updatedAt|date("d.m.Y") }}</p>
+    </a>
+{% endblock %}
+
+
+{% block imageSrc %}
+    {% if model.modelName == 'film' %}
+        {{ 'http://image.tmdb.org/t/p/w600' ~ model.image }}
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}

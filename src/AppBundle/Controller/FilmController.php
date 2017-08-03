@@ -35,7 +35,7 @@ class FilmController extends ContentController
     public function indexAction()
     {
         return $this->render($this->getModelName() . '/index.html.twig', array_merge($this->getParams(), [
-            'models' => $this->getModelRepository()->findAll(),
+            'models' => $this->getModelRepository()->findBy([],['doorsopen' => 'ASC']),
             'tmdbRepo' => $this->getTmdbRepository()
         ]));
     }
@@ -52,8 +52,8 @@ class FilmController extends ContentController
         $notFoundError = false;
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $time = \DateTime::createFromFormat('H:i', $request->get('showtimetime'));
-            $film->getShowtime()->setTime($time->format('H'), $time->format('i'));
+            $time = \DateTime::createFromFormat('H:i', $request->get('doorsopentime'));
+            $film->getDoorsopen()->setTime($time->format('H'), $time->format('i'));
 
             $repository = $this->getTmdbRepository();
             try {
@@ -66,7 +66,7 @@ class FilmController extends ContentController
                 $em->persist($film);
                 $em->flush();
 
-                return $this->redirectToRoute('film_show', array('id' => $film->getId()));
+                return $this->redirectToRoute('film_show', ['id' => $film->getId()]);
             } catch (TmdbApiException $error) {
                 $notFoundError = true;
             }
@@ -114,14 +114,18 @@ class FilmController extends ContentController
         $notFoundError = false;
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $time = \DateTime::createFromFormat('H:i', $request->get('showtimetime'));
-            $film->getShowtime()->setTime($time->format('H'), $time->format('i'));
+            $time = \DateTime::createFromFormat('H:i', $request->get('doorsopentime'));
+            $film->getDoorsopen()->setTime($time->format('H'), $time->format('i'));
 
             $repository = $this->getTmdbRepository();
             try {
-                $repository->load($film->getTmdbId());
+                /** @var Movie $tmdbMovie */
+                $tmdbMovie = $repository->load($film->getTmdbId(), ['language' => 'de']);
+                $film->setTitle($tmdbMovie->getTitle());
+                $film->setContent($tmdbMovie->getOverview());
+                $film->setImage($tmdbMovie->getPosterPath());
                 $this->getDoctrine()->getManager()->flush();
-                return $this->redirectToRoute('film_show', array('id' => $film->getId()));
+                return $this->redirectToRoute('film_show', ['id' => $film->getId()]);
             } catch (TmdbApiException $error) {
                 $notFoundError = true;
             }

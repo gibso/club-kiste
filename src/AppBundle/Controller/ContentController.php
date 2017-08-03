@@ -63,7 +63,7 @@ abstract class ContentController extends Controller
         return [
             'active' => $this->getActiveNavi(),
             'modelName' => $this->getModelName(),
-            'eventseries' => $this->getDoctrine()->getManager()->getRepository(Eventseries::class)->findAll()
+            'eventseriesNav' => $this->getDoctrine()->getManager()->getRepository(Eventseries::class)->findAll()
         ];
     }
 
@@ -73,7 +73,7 @@ abstract class ContentController extends Controller
     public function indexAction()
     {
         return $this->render($this->getModelName() . '/index.html.twig', array_merge($this->getParams(), [
-            'models' => $this->getModelRepository()->findAll()
+            'models' => $this->getModelRepository()->findBy([],['updatedAt' => 'DESC'])
         ]));
     }
 
@@ -143,7 +143,7 @@ abstract class ContentController extends Controller
 
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute($content->getModelName() . '_edit', array('id' => $content->getId()));
+            return $this->redirectToRoute($content->getModelName() . '_edit', ['id' => $content->getId()]);
         }
 
         return $this->render($this->getModelName() . '/edit.html.twig', array_merge($this->getParams(), [
@@ -184,7 +184,7 @@ abstract class ContentController extends Controller
     protected function createDeleteForm(ContentInterface $content)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl($content->getModelName() . '_delete', array('id' => $content->getId())))
+            ->setAction($this->generateUrl($content->getModelName() . '_delete', ['id' => $content->getId()]))
             ->setMethod('DELETE')
             ->getForm();
     }

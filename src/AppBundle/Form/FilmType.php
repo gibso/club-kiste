@@ -17,7 +17,7 @@ class FilmType extends AbstractType
         $builder->add('tmdbId', null, [
             'attr' => ['class' => 'form-control input-md'],
             'label_attr' => ['class' => 'col-md-4 control-label']
-        ])->add('showtime', DateType::class, [
+        ])->add('doorsopen', DateType::class, [
             'widget' => 'single_text',
             'attr' => ['class' => 'form-control input-md'],
             'label_attr' => ['class' => 'col-md-4 control-label']
@@ -29,13 +29,13 @@ class FilmType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'AppBundle\Entity\Film',
             'attr' => [
                 'role' => 'form',
                 'class' => 'form-horizontal'
             ]
-        ));
+        ]);
     }
 
     /**

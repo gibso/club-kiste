@@ -22,9 +22,9 @@ class Film extends Content implements ContentInterface
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="showtime", type="datetime")
+     * @ORM\Column(name="doorsopen", type="datetime")
      */
-    private $showtime;
+    private $doorsopen;
 
     /**
      * Set tmdbId
@@ -51,32 +51,32 @@ class Film extends Content implements ContentInterface
     }
 
     /**
-     * Set showtime
+     * Set doorsopen
      *
-     * @param \DateTime $showtime
+     * @param \DateTime $doorsopen
      *
      * @return Film
      */
-    public function setShowtime($showtime)
+    public function setDoorsopen($doorsopen)
     {
-        $this->showtime = $showtime;
+        $this->doorsopen = $doorsopen;
 
         return $this;
     }
 
     /**
-     * Get showtime
+     * Get doorsopen
      *
      * @return \DateTime
      */
-    public function getShowtime()
+    public function getDoorsopen()
     {
-        return $this->showtime;
+        return $this->doorsopen;
     }
 
     public function getSubtitle()
     {
-        return $this->getShowtime()->format('d.m.Y') . ', ' . $this->getShowtime()->format('H:i') . ' Uhr.';
+        return $this->getDoorsopen()->format('d.m.Y') . ', ' . $this->getDoorsopen()->format('H:i') . ' Uhr.';
     }
 }
 

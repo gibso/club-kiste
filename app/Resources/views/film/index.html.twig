@@ -8,7 +8,7 @@
 {% block featurette %}
     <a href="{{ path('film_show', {'id': model.id}) }}">
         <h2 class="featurette-heading">{{ tmdbMovie.title }}<span
-                    class="text-muted"> {{ model.showtime|date("d.m.Y") }}, {{ model.showtime|date("H:i") }} Uhr</span>
+                    class="text-muted"> {{ model.doorsopen|date("d.m.Y") }}, {{ model.doorsopen|date("H:i") }} Uhr</span>
         </h2>
         <p class="lead">{{ tmdbMovie.overview|truncate(450) }}</p>
     </a>

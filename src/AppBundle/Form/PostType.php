@@ -22,13 +22,13 @@ class PostType extends ContentType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'AppBundle\Entity\Post',
             'attr' => [
                 'role' => 'form',
                 'class' => 'form-horizontal'
             ]
-        ));
+        ]);
     }
 
     /**

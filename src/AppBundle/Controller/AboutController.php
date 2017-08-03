@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Eventseries;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
@@ -16,8 +17,9 @@ class AboutController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('about.html.twig', array(
-            'active' => 'about'
-        ));
+        return $this->render('about.html.twig', [
+            'active' => 'about',
+            'eventseriesNav' => $this->getDoctrine()->getManager()->getRepository(Eventseries::class)->findAll()
+        ]);
     }
 }

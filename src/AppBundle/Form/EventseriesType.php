@@ -14,13 +14,13 @@ class EventseriesType extends ContentType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'AppBundle\Entity\Eventseries',
             'attr' => [
                 'role' => 'form',
                 'class' => 'form-horizontal'
             ]
-        ));
+        ]);
     }
 
     /**

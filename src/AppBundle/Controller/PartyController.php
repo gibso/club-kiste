@@ -29,7 +29,9 @@ class PartyController extends ContentController
      */
     public function indexAction()
     {
-        return parent::indexAction();
+        return $this->render($this->getModelName() . '/index.html.twig', array_merge($this->getParams(), [
+            'models' => $this->getModelRepository()->findBy([],['doorsopen' => 'DESC'])
+        ]));
     }
 
     /**

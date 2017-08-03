@@ -5,6 +5,7 @@
 {% endblock %}
 {% block body %}
 
+    {% block beforeContent %}
     {% if app.user %}
         <div class="row">
             <a href="{{ path(modelName ~ '_new') }}"><h3
@@ -14,8 +15,7 @@
                 </h3></a>
         </div>
     {% endif %}
-
-    {% block beforeContent %}{% endblock %}
+    {% endblock %}
     <hr>
     <br> <br>
     {% for model in models %}

@@ -1,6 +1,7 @@
 {% extends 'model/index/layout.html.twig' %}
 
 {% block beforeContent %}
+    {{ parent() }}
     {% if alcoholic %}
         <script>
             if (!confirm("Na, bist du denn überhaupt schon 16 Jahre alt?")) {

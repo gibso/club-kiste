@@ -4,11 +4,14 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Event;
 use AppBundle\Entity\Eventseries;
+use AppBundle\Repository\EventRepository;
 use AppBundle\Service\FileUploader;
+use Doctrine\DBAL\Types\Type;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * Class EventseriesController
@@ -47,39 +50,22 @@ class EventseriesController extends ContentController
     public function showAction(Eventseries $eventseries)
     {
         $deleteForm = $this->createDeleteForm($eventseries);
-        $eventRepo = $this->getDoctrine()->getRepository(Event::class);
-        $nextEvent = $eventRepo->findOneBy([
-            'series' => $eventseries
-        ]);
+        /** @var EventRepository $eventRepo */
+        $eventRepo = $this->getDoctrine()->getManager()->getRepository(Event::class);
+        $queryBuilder = $eventRepo->createQueryBuilder('e');
+        $queryBuilder
+            ->select('e')
+            ->where('e.doorsopen > :now')
+            ->setParameter('now', new \DateTime('now'), Type::DATETIME)
+            ->orderBy('e.doorsopen', 'ASC')->setMaxResults(1);
+
+        $nextEvent = $queryBuilder->getQuery()->getResult();
+
+
         return $this->render($this->getModelName() . '/show.html.twig', array_merge($this->getParams(), [
             'model' => $eventseries,
             'delete_form' => $deleteForm->createView(),
             'nextEvent' => $nextEvent
-        ]));
-    }
-
-    /**
-     * @Route("/{id}/new", name="eventseries_new_event")
-     * @Method({"GET", "POST"})
-     */
-    public function newEventAction(Request $request, Eventseries $eventseries)
-    {
-        $event = new Event();
-        $form = $this->createForm('AppBundle\Form\EventType', $event);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $event->setSeries($eventseries);
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($event);
-            $em->flush();
-
-            return $this->redirectToRoute('eventseries_show', ['id' => $eventseries->getId()]);
-        }
-        return $this->render('eventseries/event/new.html.twig', array_merge($this->getParams(), [
-            'event' => $event,
-            'eventseries' => $eventseries,
-            'form' => $form->createView(),
         ]));
     }
 

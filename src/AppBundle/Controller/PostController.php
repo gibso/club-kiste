@@ -42,7 +42,7 @@ class PostController extends ContentController
         $models = ['Post', 'Film', 'Party', 'Partner', 'Event'];
         $entities = [];
         foreach ($models as $model){
-            $contents = $em->getRepository('AppBundle:' . $model)->findBy([], ['updatedAt' => 'DESC']);
+            $contents = $em->getRepository('AppBundle:' . $model)->findAll();
             $entities = array_merge($entities, $contents);
             /** @var ContentInterface $content */
             foreach($contents as $content){
