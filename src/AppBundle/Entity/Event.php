@@ -81,7 +81,7 @@ class Event extends Entity implements ContentInterface
      */
     public function getTitle()
     {
-        $this->getSeries()->getTitle();
+        return $this->getSeries()->getTitle();
     }
 
     /**
@@ -89,7 +89,9 @@ class Event extends Entity implements ContentInterface
      */
     public function getSubtitle()
     {
-        return null;
+        $date = $this->getDoorsopen()->format('d.m.y');
+        $time = $this->getDoorsopen()->format('H:i');
+        return $date . ', ' . $time . ' Uhr.';
     }
 
     /**
@@ -97,7 +99,7 @@ class Event extends Entity implements ContentInterface
      */
     public function getContent()
     {
-        $this->getSeries()->getContent();
+        return $this->getSeries()->getContent();
     }
 
     /**
@@ -105,7 +107,7 @@ class Event extends Entity implements ContentInterface
      */
     public function getImage()
     {
-        $this->getSeries()->getImage();
+        return $this->getSeries()->getImage();
     }
 
     /**
@@ -115,6 +117,8 @@ class Event extends Entity implements ContentInterface
     public function setImage($image)
     {
         $this->getSeries()->setImage($image);
+
+        return $this;
     }
 
     /**
@@ -122,6 +126,6 @@ class Event extends Entity implements ContentInterface
      */
     public function getImageFile()
     {
-        $this->getSeries()->getImage();
+        return $this->getSeries()->getImageFile();
     }
 }

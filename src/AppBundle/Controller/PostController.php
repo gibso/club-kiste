@@ -15,6 +15,10 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
+ * Post controller.
+ */
+
+/**
  * Class PostController
  * @package AppBundle\Controller
  */
@@ -35,7 +39,7 @@ class PostController extends ContentController
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $models = ['Post', 'Film', 'Party', 'Partner'];
+        $models = ['Post', 'Film', 'Party', 'Partner', 'Event'];
         $entities = [];
         foreach ($models as $model){
             $contents = $em->getRepository('AppBundle:' . $model)->findBy([], ['updatedAt' => 'DESC']);

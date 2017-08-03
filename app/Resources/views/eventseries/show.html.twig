@@ -1,8 +1,24 @@
 {% extends 'model/show.html.twig' %}
 
+{% block body %}
+    {% if app.user %}
+        <div class="row">
+            <a href="{{ path('eventseries_new_event', {'id': model.id}) }}"><h3
+                        style="text-align: center; float: center;">
+                    {{ model.title }} Termin hinzufügen <span class="glyphicon glyphicon-plus"
+                                                                aria-hidden="true"></span>
+                </h3></a>
+        </div>
+    {% endif %}
+    {{ parent() }}
+{% endblock %}
+
 {% block fields %}
     <tr>
         <td>Nächster Termin:</td>
         <td></td>
     </tr>
+    {% for event in model.events %}
+        Event: {{ event.doorsopen|date('d.m.Y') }}
+    {% endfor %}
 {% endblock %}

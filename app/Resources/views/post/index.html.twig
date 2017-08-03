@@ -4,6 +4,8 @@
     <a href="
 {% if model.modelName == 'post' or model.modelName == 'partner' or model.modelName == 'product' %}
 {{ model.link }}
+{% elseif model.modelName == 'event' %}
+{{ path('eventseries_show', {'id': model.series.id}) }}
 {% else %}
 {{ path( model.modelName ~ '_show', {'id': model.id}) }}
 {% endif %}">

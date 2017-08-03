@@ -59,6 +59,31 @@ class EventseriesController extends ContentController
     }
 
     /**
+     * @Route("/{id}/new", name="eventseries_new_event")
+     * @Method({"GET", "POST"})
+     */
+    public function newEventAction(Request $request, Eventseries $eventseries)
+    {
+        $event = new Event();
+        $form = $this->createForm('AppBundle\Form\EventType', $event);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $event->setSeries($eventseries);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($event);
+            $em->flush();
+
+            return $this->redirectToRoute('eventseries_show', ['id' => $eventseries->getId()]);
+        }
+        return $this->render('eventseries/event/new.html.twig', array_merge($this->getParams(), [
+            'event' => $event,
+            'eventseries' => $eventseries,
+            'form' => $form->createView(),
+        ]));
+    }
+
+    /**
      * @Route("/{id}/edit", name="eventseries_edit")
      * @Method({"GET", "POST"})
      */
