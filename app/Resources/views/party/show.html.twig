@@ -1,5 +1,7 @@
 {% extends 'model/show.html.twig' %}
 
+{% block siteName %}Party{% endblock %}
+
 {% block subtitle %}am {{ model.doorsopen|date('d.m.Y') }}{% endblock %}
 
 {% block fields %}

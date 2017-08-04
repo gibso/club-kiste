@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\File\File;
  * @ORM\Table(name="event")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\EventRepository")
  */
-class Event extends Entity implements ContentInterface
+class Event extends Entity implements ContentInterface, EventInterface
 {
     /**
      * @var \DateTime

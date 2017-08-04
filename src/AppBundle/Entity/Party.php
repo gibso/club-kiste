@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="party")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PartyRepository")
  */
-class Party extends Content implements ContentInterface
+class Party extends Content implements ContentInterface, EventInterface
 {
     /**
      * @var \DateTime

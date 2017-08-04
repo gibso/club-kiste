@@ -4,12 +4,18 @@
     <meta charset="UTF-8"/>
     <title>{% block title %}Kiste e.V. - Dein Studentenclub in Magdeburg!{% endblock %}</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+    <link href='{{ asset('fonts/broadway/stylesheet.css') }}' rel='stylesheet' type='text/css'>
     <link href="{{ asset('css/bootstrap/css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('css/navbar.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/index.css') }}" rel="stylesheet">
     {% block stylesheets %}{% endblock %}
 </head>
 <body>
 {% block navbar %}{{ include('navbar.html.twig') }}{% endblock %}
+<div class="jumbotron">
+    <h1>{% block siteName %}Studentenclub Kiste e.V.{% endblock %}</h1>
+</div>
+{% block admin %}{% endblock %}
 <div class="container marketing">
     {% block body %}{% endblock %}
     {% block footer %}{{ include('footer.html.twig') }}{% endblock %}

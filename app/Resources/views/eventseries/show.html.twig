@@ -1,33 +1,15 @@
 {% extends 'model/show.html.twig' %}
 
-{% block body %}
-    {% if app.user %}
-        <div class="row">
-            <a href="{{ path('eventseries_event_new', {'id': model.id}) }}"><h3
-                        style="text-align: center; float: center;">
-                    {{ model.title }} Termin hinzufügen <span class="glyphicon glyphicon-plus"
-                                                                aria-hidden="true"></span>
-                </h3></a>
-        </div>
-        <div class="row">
-            <a href="{{ path('eventseries_event_index', {'id': model.id}) }}"><h3
-                        style="text-align: center; float: center;">
-                    {{ model.title }} Termine verwalten <span class="glyphicon glyphicon-edit"
-                                                              aria-hidden="true"></span>
-                </h3></a>
-        </div>
-    {% endif %}
-    {{ parent() }}
+{% block siteName %}{{ model.title }}{% endblock %}
+
+{% block adminButtons %}
+    <a href="{{ path('eventseries_event_new', {'id': model.id}) }}" type="button"
+       class="btn btn-primary custom-button-width">Termin hinzufügen</a>
+    <a href="{{ path('eventseries_event_index', {'id': model.id}) }}" type="button"
+       class="btn btn-primary custom-button-width">Termine verwalten</a>
 {% endblock %}
 
-{% block fields %}
-    <tr>
-        <td>Nächste Veranstaltung:</td>
-        <td>
-            {% for comingEvent in nextEvent %}
-                {{ comingEvent.doorsopen|date('d.m.Y') }} um {{ comingEvent.doorsopen|date('H:i') }} Uhr
-            {% endfor %}
 
-        </td>
-    </tr>
-{% endblock %}
+{% block subtitle %} {% for comingEvent in nextEvent %}
+    am {{ comingEvent.doorsopen|date('d.m.Y') }} um {{ comingEvent.doorsopen|date('H:i') }} Uhr
+{% endfor %}{% endblock %}

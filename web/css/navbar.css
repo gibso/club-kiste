@@ -1,20 +1,6 @@
 /* GLOBAL STYLES
 -------------------------------------------------- */
 /* Padding below the footer and lighter body text */
-
-body {
-    padding-top: 100px;
-    color: #5a5a5a;
-
-    background-color: #f8f8f8;
-}
-
-hr {
-    color: #CCCCCC;
-    background-color: #CCCCCC;
-    height: 1px;
-}
-
 .navbar-toggle {
     z-index: 10;
 }

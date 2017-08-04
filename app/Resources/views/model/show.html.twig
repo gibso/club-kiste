@@ -5,23 +5,32 @@
     <link href="{{ asset('css/show.css') }}" rel="stylesheet">
 {% endblock %}
 
+{% block admin %}
+    <div class="row" style="padding-top:10px">
+        <div class="col-md-6 text-right">
+            <a href="{{ path(model.modelName ~ '_edit', { 'id': model.id }) }}" type="button"
+               class="btn btn-primary custom-button-width">Bearbeiten</a>
+            {% block adminButtons %}{% endblock %}
+        </div>
+        <div class="col-md-6">
+            {{ form_start(delete_form) }}
+            <input class="btn btn-danger" type="submit" value="Löschen">
+            {{ form_end(delete_form) }}
+        </div>
+    </div>
+{% endblock %}
+
 {% block body %}
-
     <div class="row">
-
         <div class="col-md-10">
             <h2 class="featurette-heading">{{ model.title }}<span
                         class="text-muted"> {% block subtitle %}{% endblock %}</span>
             </h2>
         </div>
-
-
     </div>
     <hr>
-
     <div class="row featurette">
         <div class="col-md-7">
-
             <table class="table">
                 <tbody>
                 {% block fields %}{% endblock %}
@@ -38,20 +47,5 @@
         </div>
     </div>
     <a href="{{ path(model.modelName ~ '_index') }}" class="btn btn-default"><span
-    <a href="{{ path(model.modelName ~ '_index') }}" class="btn btn-default"><span
                 class="glyphicon glyphicon-menu-left"></span>Zurück</a>
-    {% if app.user %}
-        <h3 style="text-align: right; float: right;">
-            <div class="col-md-6">
-                <a href="{{ path(model.modelName ~ '_edit', { 'id': model.id }) }}" class="btn btn-default">
-                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Bearbeiten
-                </a>
-            </div>
-            <div class="col-md-6">
-                {{ form_start(delete_form) }}
-                <input type="submit" value="Löschen" class="btn btn-danger">
-                {{ form_end(delete_form) }}
-            </div>
-        </h3>
-    {% endif %}
 {% endblock %}

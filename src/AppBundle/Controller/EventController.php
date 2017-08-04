@@ -11,7 +11,6 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Event;
 use AppBundle\Entity\Eventseries;
 use AppBundle\Repository\EventRepository;
-use AppBundle\Service\FileUploader;
 use Doctrine\DBAL\Types\Type;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;

@@ -28,14 +28,18 @@
                                 <li {% if active == 'film' %}class="active"{% endif %}>
                                     <a href="{{ path('film_index') }}">Kino</a>
                                 </li>
-                                <li class="{% if active == 'party' %}active{% endif %} dropdown">
+                                <li class="{% if active == 'eventseries' %}active{% endif %} dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Events
                                         <span class="caret"></span>
                                     </a>
                                     <ul class="dropdown-menu" role="menu">
-                                        {% for series in eventseriesNav %}
-                                            <li><a href="{{ path('eventseries_show', {'id': series.id}) }}">{{ series.title }}</a></li>
-                                        {% endfor %}
+                                        {% if eventseriesNav is defined %}
+                                            {% for series in eventseriesNav %}
+                                                <li>
+                                                    <a href="{{ path('eventseries_show', {'id': series.id}) }}">{{ series.title }}</a>
+                                                </li>
+                                            {% endfor %}
+                                        {% endif %}
                                     </ul>
                                 </li>
                             </ul>

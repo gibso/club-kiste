@@ -10,6 +10,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\ContentInterface;
 use AppBundle\Entity\Eventseries;
+use AppBundle\Entity\Post;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\EntityRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -22,7 +23,7 @@ use Symfony\Component\HttpFoundation\Request;
  * @package AppBundle\Controller
  * @Route("uptodate")
  */
-class UptodateController extends Controller
+class UptodateController extends ContentController
 {
     /**
      * @Route("/", name="uptodate_index")
@@ -30,9 +31,6 @@ class UptodateController extends Controller
      */
     public function indexAction()
     {
-
-
-
         $models = ['Film', 'Party', 'Event'];
         $entities = [];
         foreach ($models as $model){
@@ -48,7 +46,7 @@ class UptodateController extends Controller
 
 
             $entities = array_merge($entities, $nextEvents);
-            /** @var ContentInterface $content */
+            /** @var EventInterface $content */
             foreach($nextEvents as $content){
                 $order[] = $content->getDoorsopen();
             }
@@ -56,10 +54,9 @@ class UptodateController extends Controller
         array_multisort($order, SORT_ASC, $entities);
 
 
-        return $this->render('uptodate.html.twig', [
+        return $this->render('uptodate.html.twig', array_merge($this->getParams(), [
             'models' => $entities,
             'active' => 'uptodate',
-            'eventseriesNav' => $this->getDoctrine()->getManager()->getRepository(Eventseries::class)->findAll()
-        ]);
+        ]));
     }
 }

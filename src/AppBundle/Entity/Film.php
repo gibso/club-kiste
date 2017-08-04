@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="film")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\FilmRepository")
  */
-class Film extends Content implements ContentInterface
+class Film extends Content implements ContentInterface, EventInterface
 {
     /**
      * @var string

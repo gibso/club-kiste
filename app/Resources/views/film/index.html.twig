@@ -1,4 +1,6 @@
-{% extends 'model/index/layout.html.twig' %}
+{% extends 'model/index.html.twig' %}
+
+{% block siteName %}Kino{% endblock %}
 
 {% block model %}
     {% set tmdbMovie = tmdbRepo.load(model.tmdbId, {'language': 'de'}) %}
@@ -8,7 +10,7 @@
 {% block featurette %}
     <a href="{{ path('film_show', {'id': model.id}) }}">
         <h2 class="featurette-heading">{{ tmdbMovie.title }}<span
-                    class="text-muted"> {{ model.doorsopen|date("d.m.Y") }}, {{ model.doorsopen|date("H:i") }} Uhr</span>
+                    class="text-muted"> am {{ model.doorsopen|date("d.m.Y") }}</span>
         </h2>
         <p class="lead">{{ tmdbMovie.overview|truncate(450) }}</p>
     </a>
