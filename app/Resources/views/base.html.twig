@@ -11,6 +11,12 @@
     <link href='{{ asset('fonts/broadway/stylesheet.css') }}' rel='stylesheet' type='text/css'>
     <link href="{{ asset('css/navbar.css') }}" rel="stylesheet">
     <link href="{{ asset('css/index.css') }}" rel="stylesheet">
+    <style>
+        body {
+            background-image: url("{% block background %}{{ asset('img/welcome.jpg') }}{% endblock %}");
+        }
+    </style>
+
     {% block stylesheets %}{% endblock %}
 </head>
 <body>

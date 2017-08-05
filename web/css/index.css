@@ -1,8 +1,7 @@
 body {
 	padding-top: 50px;
 	padding-bottom: 40px;
-	background-image: url("../img/welcome.jpg");
-	background-size: 100% 250px;
+	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: top center;
 	color: #5a5a5a;
@@ -32,7 +31,9 @@ hr {
 }
 
 .marketing {
-	padding-top: 50px;
+	border-radius: 4px;
+	background-color: #f8f8f8;
+	padding-top: 20px;
 }
 
 .marketing .col-lg-4 {
@@ -49,13 +50,16 @@ hr {
 	margin-left: 10px;
 }
 
+.featurette {
+	padding: 30px;
+}
 
 .featurette a {
 	color: inherit;
 }
 
 .featurette-divider {
-	margin: 50px 0 50px 0; /* Space out the Bootstrap <hr> more */
+	margin: 20px 30px 20px 30px; /* Space out the Bootstrap <hr> more */
 }
 
 .featurette-heading {
