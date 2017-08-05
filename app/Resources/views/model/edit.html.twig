@@ -69,8 +69,6 @@
         </div>
     </fieldset>
     {{ form_end(edit_form) }}
-
-    <a class="btn" href="{{ path(model.modelname ~ '_index') }}">Zurück</a>
     <br>
     {% if delete_form is defined %}
         {{ form_start(delete_form) }}

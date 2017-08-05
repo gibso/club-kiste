@@ -2,13 +2,14 @@
 
 
 {% block admin %}
+    <div class="text-center">
         <a href="{{ path(modelName ~ '_new') }}">
-            <h3 style="text-align: center;">{{ modelName|capitalize }} hinzufügen
+            <h3 class="btn btn-primary">{{ modelName|capitalize }} hinzufügen
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
             </h3>
         </a>
+    </div>
 {% endblock %}
-
 
 {% block body %}
     {% for model in models %}
