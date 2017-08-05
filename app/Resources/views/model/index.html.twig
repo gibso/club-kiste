@@ -30,7 +30,8 @@
                                         class="text-muted"> {{ model.subtitle }}.</span>
                             </h2>
                             <p class="lead">{{ model.content|truncate(500) }}</p>
-                            {% block footnote %}<p>{{ model.modelName }} Gepostet am: {{ model.updatedAt|date("d.m.Y") }}</p>{% endblock %}
+                            {% block footnote %}<p>{{ model.modelName }} Gepostet
+                                am: {{ model.updatedAt|date("d.m.Y") }}</p>{% endblock %}
                         </a>
                     {% endblock %}
                     {% if app.user and model.modelName != 'event' %}
@@ -48,4 +49,9 @@
             {% endif %}
         {% endblock %}
     {% endfor %}
+    {% block pagination %}
+        <div class="text-center">
+            {{ knp_pagination_render(models) }}
+        </div>
+    {% endblock %}
 {% endblock %}

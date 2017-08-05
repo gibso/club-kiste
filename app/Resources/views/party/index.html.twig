@@ -16,13 +16,14 @@
             </div>
         </div>
     {% endif %}
-    {% if passedPartys is not empty %}
+    {% if models is not empty %}
         <div class="row">
             <h2 style="text-align: left; float: left;">Vergangene Partys</h2>
         </div>
         <hr class="featurette-divider" style="margin-top: 0;">
     {% endif %}
-    {% for model in passedPartys %}
+    {% for model in models %}
         {{ block('model') }}
     {% endfor %}
+    {{ block('pagination') }}
 {% endblock %}

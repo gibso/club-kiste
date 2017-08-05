@@ -24,14 +24,15 @@ class ProductController extends ContentController
     }
 
     /**
-     * @Route("s/{alcoholic}", defaults={"alcoholic" = false}, name="product_index")
+     * @Route("s/", name="product_index")
      * @Method("GET")
      */
-    public function indexAction($alcoholic = false)
+    public function indexAction(Request $request)
     {
+        $alcoholic = $request->get('alcoholic') ? true : false;
         $products = $this->getDoctrine()->getRepository('AppBundle:Product')->findBy(['alcoholic' => $alcoholic]);
         return $this->render($this->getModelName() . '/index.html.twig', array_merge($this->getParams(), [
-            'models' => $products,
+            'models' => $this->paginateContentByRequst($products, $request),
             'alcoholic' => $alcoholic
         ]));
     }

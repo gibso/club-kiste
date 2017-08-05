@@ -22,6 +22,8 @@ use Symfony\Component\HttpFoundation\Response;
  */
 abstract class ContentController extends Controller
 {
+    const PAGE_LIMIT = 5;
+
     /**
      * @return ObjectRepository
      */
@@ -70,11 +72,31 @@ abstract class ContentController extends Controller
     /**
      * @return Response
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
+        $content = $this->getModelRepository()->findBy([],['updatedAt' => 'DESC']);
+
+
+
         return $this->render($this->getModelName() . '/index.html.twig', array_merge($this->getParams(), [
-            'models' => $this->getModelRepository()->findBy([],['updatedAt' => 'DESC'])
+            'models' => $this->paginateContentByRequst($content, $request),
         ]));
+    }
+
+    /**
+     * @param array $content
+     * @param Request $request
+     * @return array
+     */
+    protected function paginateContentByRequst(Array $content, Request $request)
+    {
+        $paginator  = $this->get('knp_paginator');
+        $pageNumber = $request->get('page') ? $request->get('page') : 1;
+        return $paginator->paginate(
+            $content,
+            $pageNumber,
+            self::PAGE_LIMIT
+        );
     }
 
     /**

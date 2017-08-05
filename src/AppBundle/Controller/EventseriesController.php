@@ -29,9 +29,9 @@ class EventseriesController extends ContentController
      * @Route("/", name="eventseries_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        return parent::indexAction();
+        return parent::indexAction($request);
     }
 
     /**

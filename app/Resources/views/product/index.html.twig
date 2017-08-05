@@ -2,8 +2,7 @@
 
 {% block siteName %}Unser Sortiment{% endblock %}
 
-{% block beforeContent %}
-    {{ parent() }}
+{% block body %}
     {% if alcoholic %}
         <script>
             if (!confirm("Na, bist du denn überhaupt schon 16 Jahre alt?")) {
@@ -23,6 +22,7 @@
             </a>
         </div>
     </div>
+    {{ parent() }}
 {% endblock %}
 
 {% block featurette %}

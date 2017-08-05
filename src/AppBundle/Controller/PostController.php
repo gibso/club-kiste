@@ -36,7 +36,7 @@ class PostController extends ContentController
      * @Route("/", name="post_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $models = ['Post', 'Film', 'Party', 'Partner', 'Event'];
@@ -52,7 +52,7 @@ class PostController extends ContentController
         array_multisort($order, SORT_DESC, $entities);
 
         return $this->render($this->getModelName() . '/index.html.twig', array_merge($this->getParams(), [
-            'models' => $entities
+            'models' => $this->paginateContentByRequst($entities, $request)
         ]));
     }
 

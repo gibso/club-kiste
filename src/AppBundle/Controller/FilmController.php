@@ -34,7 +34,7 @@ class FilmController extends ContentController
      * @Route("/", name="film_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         /** @var EntityRepository $filmRepo */
         $filmRepo = $this->getModelRepository();
@@ -51,7 +51,7 @@ class FilmController extends ContentController
         
         return $this->render($this->getModelName() . '/index.html.twig', array_merge($this->getParams(), [
             'comingMovies' => $comingMovies,
-            'passedMovies' => $passedMovies,
+            'models' => $this->paginateContentByRequst($passedMovies, $request),
             'tmdbRepo' => $this->getTmdbRepository()
         ]));
     }

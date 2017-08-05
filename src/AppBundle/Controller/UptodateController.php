@@ -9,6 +9,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\ContentInterface;
+use AppBundle\Entity\EventInterface;
 use AppBundle\Entity\Eventseries;
 use AppBundle\Entity\Post;
 use Doctrine\DBAL\Types\Type;
@@ -29,7 +30,7 @@ class UptodateController extends ContentController
      * @Route("/", name="uptodate_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $models = ['Film', 'Party', 'Event'];
         $entities = [];
@@ -55,7 +56,7 @@ class UptodateController extends ContentController
 
 
         return $this->render('uptodate.html.twig', array_merge($this->getParams(), [
-            'models' => $entities,
+            'models' => $this->paginateContentByRequst($entities, $request),
             'active' => 'uptodate',
         ]));
     }

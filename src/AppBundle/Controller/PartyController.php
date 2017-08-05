@@ -29,7 +29,7 @@ class PartyController extends ContentController
      * @Route("/", name="party_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         /** @var EntityRepository $partyRepo */
         $partyRepo = $this->getModelRepository();
@@ -46,7 +46,7 @@ class PartyController extends ContentController
 
         return $this->render($this->getModelName() . '/index.html.twig', array_merge($this->getParams(), [
             'comingPartys' => $comingPartys,
-            'passedPartys' => $passedPartys
+            'models' => $this->paginateContentByRequst($passedPartys, $request)
         ]));
     }
 

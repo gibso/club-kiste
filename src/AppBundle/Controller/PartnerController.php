@@ -27,9 +27,9 @@ class PartnerController extends ContentController
      * @Route("/", name="partner_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        return parent::indexAction();
+        return parent::indexAction($request);
     }
 
     /**
