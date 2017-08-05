@@ -18,7 +18,6 @@ use Tmdb\Repository\MovieRepository;
 /**
  * Class FilmController
  * @package AppBundle\Controller
- * @Route("film")
  */
 class FilmController extends ContentController
 {
@@ -31,7 +30,7 @@ class FilmController extends ContentController
     }
 
     /**
-     * @Route("/", name="film_index")
+     * @Route("kino", name="film_index")
      * @Method("GET")
      */
     public function indexAction(Request $request)
@@ -57,7 +56,7 @@ class FilmController extends ContentController
     }
 
     /**
-     * @Route("/new", name="film_new")
+     * @Route("admin/kino/new", name="film_new")
      * @Method({"GET", "POST"})
      */
     public function newFilmAction(Request $request)
@@ -93,7 +92,7 @@ class FilmController extends ContentController
     }
 
     /**
-     * @Route("/{id}", name="film_show")
+     * @Route("kino/{id}", name="film_show")
      * @Method("GET")
      */
     public function showAction(Film $film)
@@ -116,7 +115,7 @@ class FilmController extends ContentController
     }
 
     /**
-     * @Route("/{id}/edit", name="film_edit")
+     * @Route("admin/kino/{id}/edit", name="film_edit")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Film $film)
@@ -150,7 +149,7 @@ class FilmController extends ContentController
     }
 
     /**
-     * @Route("/{id}", name="film_delete")
+     * @Route("admin/kino/{id}", name="film_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Film $film)

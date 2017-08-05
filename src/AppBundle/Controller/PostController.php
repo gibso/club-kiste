@@ -2,21 +2,13 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Content;
 use AppBundle\Entity\ContentInterface;
 use AppBundle\Entity\Post;
 use AppBundle\Service\FileUploader;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\HttpFoundation\Response;
-
-/**
- * Post controller.
- */
 
 /**
  * Class PostController
@@ -57,7 +49,7 @@ class PostController extends ContentController
     }
 
     /**
-     * @Route("post/new", name="post_new")
+     * @Route("admin/post/new", name="post_new")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request, FileUploader $fileUploader)
@@ -66,7 +58,7 @@ class PostController extends ContentController
     }
 
     /**
-     * @Route("post/{id}/edit", name="post_edit")
+     * @Route("admin/post/{id}/edit", name="post_edit")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Post $post, FileUploader $fileUploader)
@@ -75,7 +67,7 @@ class PostController extends ContentController
     }
 
     /**
-     * @Route("post/{id}", name="post_delete")
+     * @Route("admin/post/{id}", name="post_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Post $post)

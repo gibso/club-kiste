@@ -22,7 +22,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 /**
  * Class EventseriesController
  * @package AppBundle\Controller
- * @Route("eventseries")
  */
 class EventController extends ContentController
 {
@@ -32,7 +31,7 @@ class EventController extends ContentController
     }
 
     /**
-     * @Route("/{id}/event/new", name="eventseries_event_new")
+     * @Route("admin/eventseries/{id}/event/new", name="eventseries_event_new")
      * @Method({"GET", "POST"})
      */
     public function newEventAction(Request $request, Eventseries $eventseries)
@@ -57,7 +56,7 @@ class EventController extends ContentController
     }
 
     /**
-     * @Route("/{seriesId}/event/{eventId}/edit", name="eventseries_event_edit")
+     * @Route("admin/eventseries/{seriesId}/event/{eventId}/edit", name="eventseries_event_edit")
      * @ParamConverter("eventseries", options={"mapping": {"seriesId"   : "id"}})
      * @ParamConverter("event", options={"mapping": {"eventId" : "id"}})
      * @Method({"GET", "POST"})
@@ -83,7 +82,7 @@ class EventController extends ContentController
     }
 
     /**
-     * @Route("/{id}/events", name="eventseries_event_index")
+     * @Route("admin/eventseries/{id}/events", name="eventseries_event_index")
      * @Method({"GET"})
      */
     public function manageEventsAction(Request $request, Eventseries $eventseries)
@@ -94,7 +93,7 @@ class EventController extends ContentController
     }
 
     /**
-     * @Route("/{id}", name="event_delete")
+     * @Route("admin/eventseries/{id}", name="event_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Event $event)

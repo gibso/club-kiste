@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Class PartyController
  * @package AppBundle\Controller
- * @Route("party")
  */
 class PartyController extends ContentController
 {
@@ -26,7 +25,7 @@ class PartyController extends ContentController
     }
 
     /**
-     * @Route("/", name="party_index")
+     * @Route("partys", name="party_index")
      * @Method("GET")
      */
     public function indexAction(Request $request)
@@ -51,7 +50,7 @@ class PartyController extends ContentController
     }
 
     /**
-     * @Route("/new", name="party_new")
+     * @Route("admin/party/new", name="party_new")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request, FileUploader $fileUploader)
@@ -60,7 +59,7 @@ class PartyController extends ContentController
     }
 
     /**
-     * @Route("/{id}", name="party_show")
+     * @Route("party/{id}", name="party_show")
      * @Method("GET")
      */
     public function showAction(Party $party)
@@ -69,7 +68,7 @@ class PartyController extends ContentController
     }
 
     /**
-     * @Route("/{id}/edit", name="party_edit")
+     * @Route("admin/party/{id}/edit", name="party_edit")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Party $party, FileUploader $fileUploader)
@@ -78,7 +77,7 @@ class PartyController extends ContentController
     }
 
     /**
-     * @Route("/{id}", name="party_delete")
+     * @Route("admin/party/{id}", name="party_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Party $party)

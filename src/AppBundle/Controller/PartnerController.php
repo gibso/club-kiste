@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Class PartnerController
  * @package AppBundle\Controller
- * @Route("partner")
  */
 class PartnerController extends ContentController
 {
@@ -24,7 +23,7 @@ class PartnerController extends ContentController
     }
 
     /**
-     * @Route("/", name="partner_index")
+     * @Route("partner/", name="partner_index")
      * @Method("GET")
      */
     public function indexAction(Request $request)
@@ -33,7 +32,7 @@ class PartnerController extends ContentController
     }
 
     /**
-     * @Route("/new", name="partner_new")
+     * @Route("admin/partner/new", name="partner_new")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request, FileUploader $fileUploader)
@@ -42,7 +41,7 @@ class PartnerController extends ContentController
     }
 
     /**
-     * @Route("/{id}/edit", name="partner_edit")
+     * @Route("admin/partner/{id}/edit", name="partner_edit")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Partner $partner, FileUploader $fileUploader)
@@ -51,7 +50,7 @@ class PartnerController extends ContentController
     }
 
     /**
-     * @Route("/{id}", name="partner_delete")
+     * @Route("admin/partner/{id}", name="partner_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Partner $partner)

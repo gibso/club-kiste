@@ -16,7 +16,6 @@ use Symfony\Component\Validator\Constraints\DateTime;
 /**
  * Class EventseriesController
  * @package AppBundle\Controller
- * @Route("eventseries")
  */
 class EventseriesController extends ContentController
 {
@@ -26,7 +25,7 @@ class EventseriesController extends ContentController
     }
 
     /**
-     * @Route("/", name="eventseries_index")
+     * @Route("eventseries/", name="eventseries_index")
      * @Method("GET")
      */
     public function indexAction(Request $request)
@@ -35,7 +34,7 @@ class EventseriesController extends ContentController
     }
 
     /**
-     * @Route("/new", name="eventseries_new")
+     * @Route("admin/eventseries/new", name="eventseries_new")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request, FileUploader $fileUploader)
@@ -44,7 +43,7 @@ class EventseriesController extends ContentController
     }
 
     /**
-     * @Route("/{id}", name="eventseries_show")
+     * @Route("eventseries/{id}", name="eventseries_show")
      * @Method("GET")
      */
     public function showAction(Eventseries $eventseries)
@@ -70,7 +69,7 @@ class EventseriesController extends ContentController
     }
 
     /**
-     * @Route("/{id}/edit", name="eventseries_edit")
+     * @Route("admin/eventseries/{id}/edit", name="eventseries_edit")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Eventseries $eventseries, FileUploader $fileUploader)
@@ -79,7 +78,7 @@ class EventseriesController extends ContentController
     }
 
     /**
-     * @Route("/{id}", name="eventseries_delete")
+     * @Route("admin/eventseries/{id}", name="eventseries_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Eventseries $eventseries)

@@ -1,12 +1,14 @@
 {% extends 'base.html.twig' %}
 
+
 {% block admin %}
-    <a href="{{ path(modelName ~ '_new') }}">
-        <h3 style="text-align: center;">{{ modelName|capitalize }} hinzufügen
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-        </h3>
-    </a>
+        <a href="{{ path(modelName ~ '_new') }}">
+            <h3 style="text-align: center;">{{ modelName|capitalize }} hinzufügen
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            </h3>
+        </a>
 {% endblock %}
+
 
 {% block body %}
     {% for model in models %}
@@ -29,7 +31,7 @@
                             <h2 class="featurette-heading">{{ model.title }}.<span
                                         class="text-muted"> {{ model.subtitle }}.</span>
                             </h2>
-                            <p class="lead">{{ model.content|truncate(500) }}</p>
+                            <p class="lead">{{ model.content|truncate(400) }}</p>
                             {% block footnote %}<p>{{ model.modelName }} Gepostet
                                 am: {{ model.updatedAt|date("d.m.Y") }}</p>{% endblock %}
                         </a>

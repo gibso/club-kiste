@@ -75,9 +75,6 @@ abstract class ContentController extends Controller
     public function indexAction(Request $request)
     {
         $content = $this->getModelRepository()->findBy([],['updatedAt' => 'DESC']);
-
-
-
         return $this->render($this->getModelName() . '/index.html.twig', array_merge($this->getParams(), [
             'models' => $this->paginateContentByRequst($content, $request),
         ]));

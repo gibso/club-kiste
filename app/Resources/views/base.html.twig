@@ -18,7 +18,9 @@
 <div class="jumbotron">
     <h1>{% block siteName %}Studentenclub Kiste e.V.{% endblock %}</h1>
 </div>
-{% block admin %}{% endblock %}
+{% if app.user %}
+    {% block admin %}{% endblock %}
+{% endif %}
 <div class="container marketing">
     {% block body %}{% endblock %}
     {% block footer %}{{ include('footer.html.twig') }}{% endblock %}

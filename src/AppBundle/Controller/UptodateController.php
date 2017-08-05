@@ -22,12 +22,11 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Class FilmController
  * @package AppBundle\Controller
- * @Route("uptodate")
  */
 class UptodateController extends ContentController
 {
     /**
-     * @Route("/", name="uptodate_index")
+     * @Route("/aktuelles", name="uptodate_index")
      * @Method("GET")
      */
     public function indexAction(Request $request)

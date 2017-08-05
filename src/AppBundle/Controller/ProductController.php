@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Class ProductController
  * @package AppBundle\Controller
- * @Route("product")
  */
 class ProductController extends ContentController
 {
@@ -24,7 +23,7 @@ class ProductController extends ContentController
     }
 
     /**
-     * @Route("s/", name="product_index")
+     * @Route("sortiment", name="product_index")
      * @Method("GET")
      */
     public function indexAction(Request $request)
@@ -38,7 +37,7 @@ class ProductController extends ContentController
     }
 
     /**
-     * @Route("/new", name="product_new")
+     * @Route("admin/sortiment/new", name="product_new")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request, FileUploader $fileUploader)
@@ -47,7 +46,7 @@ class ProductController extends ContentController
     }
 
     /**
-     * @Route("/{id}/edit", name="product_edit")
+     * @Route("admin/sortiment/{id}/edit", name="product_edit")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Product $product, FileUploader $fileUploader)
@@ -56,7 +55,7 @@ class ProductController extends ContentController
     }
 
     /**
-     * @Route("/{id}", name="product_delete")
+     * @Route("admin/sortiment/{id}", name="product_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Product $product)

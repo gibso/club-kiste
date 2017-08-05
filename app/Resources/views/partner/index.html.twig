@@ -14,6 +14,6 @@
     {% if model.link is defined %}<a href="{{ model.link }}">{% endif %}
     <h2 class="featurette-heading">{{ model.title }}
     </h2>
-    <p class="lead">{{ model.content|truncate(500) }}</p>
+    <p class="lead">{{ model.content }}</p>
     {% if model.link is defined %}</a>{% endif %}
 {% endblock %}
