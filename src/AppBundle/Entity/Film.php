@@ -76,7 +76,7 @@ class Film extends Content implements ContentInterface, EventInterface
 
     public function getSubtitle()
     {
-        return $this->getDoorsopen()->format('d.m.Y') . ', ' . $this->getDoorsopen()->format('H:i') . ' Uhr.';
+        return $this->getDoorsopen()->format('d.m.Y') . ', ' . $this->getDoorsopen()->format('H:i') . ' Uhr';
     }
 }
 

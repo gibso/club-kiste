@@ -35,7 +35,7 @@
                 <tbody>
                 {% block fields %}{% endblock %}
                 <tr>
-                    <td colspan="2">{{ model.content }}</td>
+                    <td colspan="2">{{ model.content|nl2br }}</td>
                 </tr>
                 </tbody>
             </table>

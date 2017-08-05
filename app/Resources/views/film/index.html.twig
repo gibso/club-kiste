@@ -2,20 +2,31 @@
 
 {% block siteName %}Kino{% endblock %}
 
-{% block model %}
-    {% set tmdbMovie = tmdbRepo.load(model.tmdbId, {'language': 'de'}) %}
-    {{ parent() }}
-{% endblock %}
-
-{% block featurette %}
-    <a href="{{ path('film_show', {'id': model.id}) }}">
-        <h2 class="featurette-heading">{{ tmdbMovie.title }}<span
-                    class="text-muted"> am {{ model.doorsopen|date("d.m.Y") }}</span>
-        </h2>
-        <p class="lead">{{ tmdbMovie.overview|truncate(450) }}</p>
-    </a>
-{% endblock %}
+{% block footnote %}{% endblock %}
 
 {% block imageSrc %}
-    {{ 'http://image.tmdb.org/t/p/w600' ~ tmdbMovie.posterPath }}
+    {{ 'http://image.tmdb.org/t/p/w600' ~ model.image }}
+{% endblock %}
+
+{% block body %}
+    {% for model in comingMovies %}
+        {{ block('model') }}
+    {% endfor %}
+    {% if comingMovies is empty %}
+        <div class="row">
+            <div class="col-md-offset-2 col-md-8">
+                <h3 style="text-align: center">Die nächste Party kommt bestimmt!
+                    Sobald wir mehr wissen, informieren wir dich hier!</h3>
+            </div>
+        </div>
+    {% endif %}
+    {% if passedMovies is not empty %}
+        <div class="row">
+            <h2 style="text-align: left; float: left;">Vergangene Vorstellungen</h2>
+        </div>
+        <hr class="featurette-divider" style="margin-top: 0;">
+    {% endif %}
+    {% for model in passedMovies %}
+        {{ block('model') }}
+    {% endfor %}
 {% endblock %}

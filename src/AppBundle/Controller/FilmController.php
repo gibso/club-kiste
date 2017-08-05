@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Film;
+use AppBundle\Repository\EntityRepository;
+use Doctrine\DBAL\Types\Type;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,8 +36,22 @@ class FilmController extends ContentController
      */
     public function indexAction()
     {
+        /** @var EntityRepository $filmRepo */
+        $filmRepo = $this->getModelRepository();
+        $queryBuilder = $filmRepo->createQueryBuilder('f');
+        $queryBuilder
+            ->select('f')
+            ->where('f.doorsopen > :now')
+            ->setParameter('now', new \DateTime('now'), Type::DATETIME)
+            ->orderBy('f.doorsopen', 'ASC');
+        $comingMovies = $queryBuilder->getQuery()->getResult();
+
+        $queryBuilder->where('f.doorsopen < :now')->orderBy('f.doorsopen', 'DESC');
+        $passedMovies = $queryBuilder->getQuery()->getResult();
+        
         return $this->render($this->getModelName() . '/index.html.twig', array_merge($this->getParams(), [
-            'models' => $this->getModelRepository()->findBy([],['doorsopen' => 'ASC']),
+            'comingMovies' => $comingMovies,
+            'passedMovies' => $passedMovies,
             'tmdbRepo' => $this->getTmdbRepository()
         ]));
     }

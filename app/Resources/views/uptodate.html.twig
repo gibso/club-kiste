@@ -17,7 +17,6 @@
                     class="text-muted"> {{ model.subtitle }}</span>
         </h2>
         <p class="lead">{{ model.content|truncate(500) }}</p>
-        <p>{{ model.modelName }} Gepostet am: {{ model.updatedAt|date("d.m.Y") }}</p>
     </a>
 {% endblock %}
 
@@ -29,3 +28,4 @@
         {{ parent() }}
     {% endif %}
 {% endblock %}
+

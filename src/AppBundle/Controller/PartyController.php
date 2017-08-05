@@ -4,6 +4,8 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Party;
 use AppBundle\Service\FileUploader;
+use Doctrine\DBAL\Types\Type;
+use Doctrine\ORM\EntityRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,8 +31,22 @@ class PartyController extends ContentController
      */
     public function indexAction()
     {
+        /** @var EntityRepository $partyRepo */
+        $partyRepo = $this->getModelRepository();
+        $queryBuilder = $partyRepo->createQueryBuilder('p');
+        $queryBuilder
+            ->select('p')
+            ->where('p.doorsopen > :now')
+            ->setParameter('now', new \DateTime('now'), Type::DATETIME)
+            ->orderBy('p.doorsopen', 'ASC');
+        $comingPartys = $queryBuilder->getQuery()->getResult();
+
+        $queryBuilder->where('p.doorsopen < :now')->orderBy('p.doorsopen', 'DESC');
+        $passedPartys = $queryBuilder->getQuery()->getResult();
+
         return $this->render($this->getModelName() . '/index.html.twig', array_merge($this->getParams(), [
-            'models' => $this->getModelRepository()->findBy([],['doorsopen' => 'DESC'])
+            'comingPartys' => $comingPartys,
+            'passedPartys' => $passedPartys
         ]));
     }
 

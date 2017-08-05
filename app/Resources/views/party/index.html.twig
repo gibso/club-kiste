@@ -2,11 +2,27 @@
 
 {% block siteName %}Party{% endblock %}
 
+{% block footnote %}{% endblock %}
 
-{% block featurette %}
-   <a href="{{ path('party_show', {'id': model.id}) }}">
-    <h2 class="featurette-heading">{{ model.title }}<span
-               class="text-muted"> am {{ model.doorsopen|date("d.m.Y") }}</span></h2>
-    <p class="lead">{{ model.content|truncate(500) }}</p>
-   </a>
+{% block body %}
+    {% for model in comingPartys %}
+        {{ block('model') }}
+    {% endfor %}
+    {% if comingPartys is empty %}
+        <div class="row">
+            <div class="col-md-offset-2 col-md-8">
+                <h3 style="text-align: center">Die nächste Party kommt bestimmt!
+                    Sobald wir mehr wissen, informieren wir dich hier!</h3>
+            </div>
+        </div>
+    {% endif %}
+    {% if passedPartys is not empty %}
+        <div class="row">
+            <h2 style="text-align: left; float: left;">Vergangene Partys</h2>
+        </div>
+        <hr class="featurette-divider" style="margin-top: 0;">
+    {% endif %}
+    {% for model in passedPartys %}
+        {{ block('model') }}
+    {% endfor %}
 {% endblock %}
