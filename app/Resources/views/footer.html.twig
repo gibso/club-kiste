@@ -2,8 +2,6 @@
 <hr style="width: 100%; height: 1px;"/>
 <footer>
     <p class="pull-right">
-        Bildquelle: Petra Bork & Tim Reckmann / <a href="www.pixelio.de">pixelio.de</a> &middot;
-
         {% if app.user %}
             <a href=" {{ path('fos_user_security_logout') }} ">Ausloggen</a>
         {% else %}
@@ -14,6 +12,6 @@
     </p>
     <p>
         &copy; {{ "now"|date("Y") }} Studentenclub Kiste e.V. &middot; <a
-                href="menu/impressum.php">Impressum</a>
+                href="{{ path('about') }}">Impressum</a>
     </p>
 </footer>

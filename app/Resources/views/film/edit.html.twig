@@ -1,12 +1,9 @@
-{% extends 'base.html.twig' %}
+{% extends 'model/edit.html.twig' %}
 
 {% block siteName %}Kino{% endblock %}
 
 {% block body %}
     {{ form_start(edit_form) }}
-
-
-
     <fieldset>
         <legend><h1>{{ model.modelName|capitalize }} bearbeiten</h1></legend>
         <div class="form-group {% if notFoundError %}has-error has-feedback{% endif %}">
@@ -29,12 +26,6 @@
             {{ form_label(edit_form.doorsopen) }}
             <div class='col-md-5'>
                 {{ form_widget(edit_form.doorsopen) }}
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-4 control-label required" for="appbundle_film_doorsopen">Doorsopen</label>
-            <div class="col-md-5">
-                <input type="time" id="appbundle_film_doorsopen_time" name="doorsopentime" required="required" class="form-control input-md" value="{{ model.doorsopen|date('H:i') }}">
             </div>
         </div>
         <div class="form-group">

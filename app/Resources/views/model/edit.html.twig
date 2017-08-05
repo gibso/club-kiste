@@ -1,5 +1,25 @@
 {% extends 'base.html.twig' %}
 
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('bower_components/moment/min/moment-with-locales.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}"></script>
+    <script type="text/javascript">
+            $(function () {
+                console.log('function');
+                var test = moment([2010, 0, 31]);
+                console.log(test);
+                $("input[id$='doorsopen']").datetimepicker({
+                    locale: 'de',
+                    sideBySide: true
+                });
+            });
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css') }}" />
+{% endblock %}
+
 {% block body %}
     {{ form_start(edit_form) }}
 

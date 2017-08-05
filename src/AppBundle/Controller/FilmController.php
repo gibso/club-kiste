@@ -52,9 +52,6 @@ class FilmController extends ContentController
         $notFoundError = false;
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $time = \DateTime::createFromFormat('H:i', $request->get('doorsopentime'));
-            $film->getDoorsopen()->setTime($time->format('H'), $time->format('i'));
-
             $repository = $this->getTmdbRepository();
             try {
                 /** @var Movie $tmdbMovie */
@@ -114,9 +111,6 @@ class FilmController extends ContentController
         $notFoundError = false;
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $time = \DateTime::createFromFormat('H:i', $request->get('doorsopentime'));
-            $film->getDoorsopen()->setTime($time->format('H'), $time->format('i'));
-
             $repository = $this->getTmdbRepository();
             try {
                 /** @var Movie $tmdbMovie */

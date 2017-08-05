@@ -7,7 +7,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class FilmType extends AbstractType
+class FilmType extends ContentType
 {
     /**
      * {@inheritdoc}
@@ -17,9 +17,12 @@ class FilmType extends AbstractType
         $builder->add('tmdbId', null, [
             'attr' => ['class' => 'form-control input-md'],
             'label_attr' => ['class' => 'col-md-4 control-label']
-        ])->add('doorsopen', DateType::class, [
+        ])->add('doorsopen', null, [
             'widget' => 'single_text',
-            'attr' => ['class' => 'form-control input-md'],
+            'format' => 'dd.MM.yyyy HH:mm',
+            'attr' => [
+                'class' => 'form-control input-md'
+            ],
             'label_attr' => ['class' => 'col-md-4 control-label']
         ]);
     }

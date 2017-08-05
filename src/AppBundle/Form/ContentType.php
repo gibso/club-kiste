@@ -13,7 +13,7 @@ abstract class ContentType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $fields = ['title', 'content',  'imageFile'];
+        $fields = ['title', 'content', 'imageFile'];
         $fields = array_merge($fields, $this->addFieldsToForm());
 
         foreach ($fields as $field) {
