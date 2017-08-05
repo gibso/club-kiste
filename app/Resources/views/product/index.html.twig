@@ -2,6 +2,8 @@
 
 {% block siteName %}Unser Sortiment{% endblock %}
 
+{% block background %}{{ asset('img/sortiment.jpeg') }}{% endblock %}
+
 {% block body %}
     {% if alcoholic %}
         <script>
@@ -25,12 +27,6 @@
     {{ parent() }}
 {% endblock %}
 
-{% block featurette %}
-    <a href="{{ model.link }}">
-        <h2 class="featurette-heading">{{ model.title }}<span
-                    class="text-muted"> {{ model.subtitle }}</span>
-        </h2>
-        <p class="lead">{{ model.content }}</p>
-        <p>Quelle: {{ model.source }}</p>
-    </a>
-{% endblock %}
+{% block modelLink %}{{ model.link }}{% endblock %}
+{% block footnote %}Quelle: {{ model.source }}{% endblock %}
+{% block modelContent %}{{ model.content }}{% endblock %}

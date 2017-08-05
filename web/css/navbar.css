@@ -60,17 +60,6 @@
     .navbar-wrapper {
         margin-top: 20px;
     }
-
-    .navbar-wrapper .container {
-        padding-right: 15px;
-        padding-left: 15px;
-    }
-
-    .navbar-wrapper .navbar {
-        padding-right: 0;
-        padding-left: 0;
-    }
-
     /* The navbar becomes detached from the top, so we round the corners */
     .navbar-wrapper .navbar {
         border-radius: 4px;

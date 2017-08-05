@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-    <link href="{{ asset('css/index.css') }}" rel="stylesheet">
     <link href="{{ asset('css/show.css') }}" rel="stylesheet">
 {% endblock %}
 
@@ -21,31 +20,29 @@
 {% endblock %}
 
 {% block body %}
-    <div class="row">
-        <div class="col-md-10">
-            <h2 class="featurette-heading">{{ model.title }}<span
-                        class="text-muted"> {% block subtitle %}{% endblock %}</span>
-            </h2>
-        </div>
+    <div style="margin: 0 30px -10px 30px">
+        <h2 class="featurette-heading">{% block modelTitle %}{{ model.title }}{% endblock %}<span
+                    class="text-muted"> {% block modelSubtitle %}{{ model.subtitle }}{% endblock %}</span>
+        </h2>
     </div>
-    <hr>
+    <hr class="featurette-divider">
     <div class="row featurette">
         <div class="col-md-7">
             <table class="table">
                 <tbody>
                 {% block fields %}{% endblock %}
                 <tr>
-                    <td colspan="2">{{ model.content|nl2br }}</td>
+                    <td colspan="2">{% block modelContent %}{{ model.content|nl2br }}{% endblock %}</td>
                 </tr>
                 </tbody>
             </table>
         </div>
         <div class="col-md-5">
             <img class="featurette-image img-responsive"
-                 src="{{ images_directory ~ model.image }}"
+                 src="{% block modelImageSrc %}{{ images_directory ~ model.image }}{% endblock %}"
                  alt="Generic placeholder image"> <br>
         </div>
     </div>
-    <a href="{{ path(model.modelName ~ '_index') }}" class="btn btn-default"><span
+    <a style="margin-left: 30px" href="{% block backLink %}{{ path(model.modelName ~ '_index') }}{% endblock %}" class="btn btn-default"><span
                 class="glyphicon glyphicon-menu-left"></span>Zurück</a>
 {% endblock %}

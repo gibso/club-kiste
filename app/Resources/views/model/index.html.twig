@@ -15,11 +15,11 @@
         {% block model %}
             <div class="row featurette">
                 {% if loop.index is even %}
-                    {% block image %}
+                    {% block modelImage %}
                         <div class="col-md-5">
                             <div style="height: 350px; overflow: hidden; margin: 0 0 0 0;">
                                 <img class="featurette-image img-responsive"
-                                     src="{% block imageSrc %}{{ images_directory ~ model.image }}{% endblock %}"
+                                     src="{% block modelImageSrc %}{{ images_directory ~ model.image }}{% endblock %}"
                                      alt="Generic placeholder image">
                             </div>
                         </div>
@@ -27,13 +27,13 @@
                 {% endif %}
                 <div class="col-md-7">
                     {% block featurette %}
-                        <a href="{{ path( model.modelName ~ '_show', {'id': model.id}) }}">
-                            <h2 class="featurette-heading">{{ model.title }}.<span
-                                        class="text-muted"> {{ model.subtitle }}.</span>
+                        <a href="{% block modelLink %}{{ path( model.modelName ~ '_show', {'id': model.id}) }}{% endblock %}">
+                            <h2 class="featurette-heading">{% block modelTitle %}{{ model.title }}{% endblock %}.<span
+                                        class="text-muted"> {% block modelSubtitle %}{{ model.subtitle }}{% endblock %}.</span>
                             </h2>
-                            <p class="lead">{{ model.content|truncate(400) }}</p>
-                            {% block footnote %}<p>{{ model.modelName }} Gepostet
-                                am: {{ model.updatedAt|date("d.m.Y") }}</p>{% endblock %}
+                            <p class="lead">{% block modelContent %}{{ model.content|truncate(400) }}{% endblock %}</p>
+                            <p>{% block footnote %}{{ model.modelName }} Gepostet
+                                am: {{ model.updatedAt|date("d.m.Y") }}{% endblock %}</p>
                         </a>
                     {% endblock %}
                     {% if app.user and model.modelName != 'event' %}
@@ -43,7 +43,7 @@
                     {% endif %}
                 </div>
                 {% if loop.index is not even %}
-                    {{ block('image') }}
+                    {{ block('modelImage') }}
                 {% endif %}
             </div>
             {% if not loop.last %}

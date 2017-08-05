@@ -22,7 +22,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 abstract class ContentController extends Controller
 {
-    const PAGE_LIMIT = 5;
+    const PAGE_LIMIT = 7;
 
     /**
      * @return ObjectRepository

@@ -2,9 +2,11 @@
 
 {% block siteName %}Kino{% endblock %}
 
+{% block background %}{{ asset('img/kino.jpeg') }}{% endblock %}
+
 {% block footnote %}{% endblock %}
 
-{% block imageSrc %}
+{% block modelImageSrc %}
     {{ 'http://image.tmdb.org/t/p/w600' ~ model.image }}
 {% endblock %}
 
@@ -22,7 +24,7 @@
     {% endif %}
     {% if models is not empty %}
         <div class="row">
-            <h2 style="text-align: left; float: left; margin-left: 20px">Vergangene Vorstellungen</h2>
+            <h2 style="margin-left: 40px;">Vergangene Vorstellungen</h2>
         </div>
         <hr class="featurette-divider" style="margin-top: 0;">
     {% endif %}

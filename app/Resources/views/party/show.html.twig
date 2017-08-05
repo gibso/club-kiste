@@ -2,7 +2,9 @@
 
 {% block siteName %}Party{% endblock %}
 
-{% block subtitle %}am {{ model.doorsopen|date('d.m.Y') }}{% endblock %}
+{% block background %}{{ asset('img/party.jpg') }}{% endblock %}
+
+{% block modelSubtitle %}am {{ model.doorsopen|date('d.m.Y') }}{% endblock %}
 
 {% block fields %}
     <tr>

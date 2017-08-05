@@ -2,81 +2,63 @@
 
 {% block siteName %}Kino{% endblock %}
 
+{% block background %}{{ asset('img/kino.jpeg') }}{% endblock %}
+{% block modelTitle %}{{ model.title }}{% if tmdbMovie.tagline is not empty %}.{% endif %}{% endblock %}
+{% block modelSubtitle %}{{ tmdbMovie.tagline }}{% endblock %}
+
+{% block fields %}
+    <tr>
+        <td>Im Kiste Kino:</td>
+        <td>{{ model.doorsopen| date('d.m.Y') }}, {{ model.doorsopen|date('H:i') }} Uhr</td>
+    </tr>
+    <tr>
+        <td>Genres:</td>
+        <td>{% for genre in tmdbMovie.genres %}
+                {{ genre.name }}{% if not loop.last %}, {% endif %}
+            {% endfor %}</td>
+    </tr>
+    <tr>
+        <td>Regisseur_in:</td>
+        <td>
+            {% for person in tmdbMovie.credits.crew %}
+                {% if person.job == 'Director' %}
+                    {{ person.name }}
+                {% endif %}
+            {% endfor %}
+        </td>
+    </tr>
+    <tr>
+        <td>Schauspieler_innen:</td>
+        <td>
+            {% for person in tmdbMovie.credits.cast %}
+                {% if loop.index < 5 %}
+                    {{ person.name }}{% if loop.index < 4 %}, {% endif %}
+                {% endif %}
+            {% endfor %}
+        </td>
+    </tr>
+    <tr>
+        <td>Produktionsfirma:</td>
+        <td>{% for company in tmdbMovie.productionCompanies %}
+                {{ company.name }}{% if not loop.last %}, {% endif %}
+            {% endfor %}</td>
+    </tr>
+    <tr>
+        <td>Produktionsland:</td>
+        <td>{% for country in tmdbMovie.productionCountries %}
+                {{ country.name }}{% if not loop.last %}, {% endif %}
+            {% endfor %}</td>
+    </tr>
+    <tr>
+        <td>Veröffentlichung:</td>
+        <td>{{ tmdbMovie.releaseDate|date('d.m.Y') }}</td>
+    </tr>
+{% endblock %}
+
+{% block modelImageSrc %}{{ 'http://image.tmdb.org/t/p/w600' ~ tmdbMovie.posterPath }}{% endblock %}
 
 {% block body %}
-    <div class="row">
-        <div class="col-md-10">
-            <h2 class="featurette-heading">{{ tmdbMovie.title }}<span
-                        class="text-muted"> {{ tmdbMovie.tagline }}</span>
-            </h2>
-        </div>
-    </div>
-    <hr>
-
-    <div class="row featurette">
-        <div class="col-md-7">
-            <table class="table">
-                <tbody>
-                <tr>
-                    <td>Im Kiste Kino:</td>
-                    <td>{{ model.doorsopen| date('d.m.Y') }}, {{ model.doorsopen|date('H:i') }} Uhr</td>
-                </tr>
-                <tr>
-                    <td>Genres:</td>
-                    <td>{% for genre in tmdbMovie.genres %}
-                            {{ genre.name }}{% if not loop.last %}, {% endif %}
-                        {% endfor %}</td>
-                </tr>
-                <tr>
-                    <td>Regisseur_in:</td>
-                    <td>
-                        {% for person in tmdbMovie.credits.crew %}
-                            {% if person.job == 'Director' %}
-                                {{ person.name }}
-                            {% endif %}
-                        {% endfor %}
-                    </td>
-                </tr>
-                <tr>
-                    <td>Schauspieler_innen:</td>
-                    <td>
-                        {% for person in tmdbMovie.credits.cast %}
-                            {% if loop.index < 5 %}
-                                {{ person.name }}{% if loop.index < 4 %}, {% endif %}
-                            {% endif %}
-                        {% endfor %}
-                    </td>
-                </tr>
-                <tr>
-                    <td>Produktionsfirma:</td>
-                    <td>{% for company in tmdbMovie.productionCompanies %}
-                            {{ company.name }}{% if not loop.last %}, {% endif %}
-                        {% endfor %}</td>
-                </tr>
-                <tr>
-                    <td>Produktionsland:</td>
-                    <td>{% for country in tmdbMovie.productionCountries %}
-                            {{ country.name }}{% if not loop.last %}, {% endif %}
-                        {% endfor %}</td>
-                </tr>
-                <tr>
-                    <td>Veröffentlichung:</td>
-                    <td>{{ tmdbMovie.releaseDate|date('d.m.Y') }}</td>
-                </tr>
-                <tr>
-                    <td colspan="2">{{ tmdbMovie.overview }}</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="col-md-5">
-            <img class="featurette-image img-responsive"
-                 src="{{ 'http://image.tmdb.org/t/p/w600' ~ tmdbMovie.posterPath }}"
-                 alt="Generic placeholder image"> <br>
-        </div>
-    </div>
-
-
+    {{ parent() }}
     {% for video in tmdbMovie.videos %}
         {% if video.site == 'YouTube' %}
             <hr class="featurette-divider"/>
@@ -87,9 +69,6 @@
             </div>
         {% endif %}
     {% endfor %}
-
-    <a href="{{ path(model.modelName ~ '_index') }}" class="btn btn-default"><span
-                class="glyphicon glyphicon-menu-left"></span>Zurück</a>
 {% endblock %}
 
 
