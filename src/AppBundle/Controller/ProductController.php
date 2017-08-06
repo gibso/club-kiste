@@ -40,18 +40,18 @@ class ProductController extends ContentController
      * @Route("admin/sortiment/new", name="product_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request, FileUploader $fileUploader)
+    public function newAction(Request $request)
     {
-        return parent::newAction($request, $fileUploader);
+        return parent::newAction($request);
     }
 
     /**
      * @Route("admin/sortiment/{id}/edit", name="product_edit")
      * @Method({"GET", "POST"})
      */
-    public function editAction(Request $request, Product $product, FileUploader $fileUploader)
+    public function editAction(Request $request, Product $product)
     {
-        return $this->edit($request, $product, $fileUploader);
+        return $this->edit($request, $product);
     }
 
     /**

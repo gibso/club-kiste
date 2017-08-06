@@ -37,9 +37,9 @@ class EventseriesController extends ContentController
      * @Route("admin/eventseries/new", name="eventseries_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request, FileUploader $fileUploader)
+    public function newAction(Request $request)
     {
-        return parent::newAction($request, $fileUploader);
+        return parent::newAction($request);
     }
 
     /**
@@ -72,9 +72,9 @@ class EventseriesController extends ContentController
      * @Route("admin/eventseries/{id}/edit", name="eventseries_edit")
      * @Method({"GET", "POST"})
      */
-    public function editAction(Request $request, Eventseries $eventseries, FileUploader $fileUploader)
+    public function editAction(Request $request, Eventseries $eventseries)
     {
-        return parent::edit($request, $eventseries, $fileUploader);
+        return parent::edit($request, $eventseries);
     }
 
     /**

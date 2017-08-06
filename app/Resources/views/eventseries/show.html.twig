@@ -3,13 +3,13 @@
 {% block siteName %}{{ model.title }}{% endblock %}
 
 {% block adminButtons %}
-    <a href="{{ path('eventseries_event_new', {'id': model.id}) }}" type="button"
+    <a href="{{ path('event_new', {'id': model.id}) }}" type="button"
        class="btn btn-primary custom-button-width">Termin hinzufügen</a>
-    <a href="{{ path('eventseries_event_index', {'id': model.id}) }}" type="button"
+    <a href="{{ path('event_index', {'id': model.id}) }}" type="button"
        class="btn btn-primary custom-button-width">Termine verwalten</a>
 {% endblock %}
 
 
-{% block subtitle %} {% for comingEvent in nextEvent %}
+{% block modelSubtitle %} {% for comingEvent in nextEvent %}
     am {{ comingEvent.doorsopen|date('d.m.Y') }} um {{ comingEvent.doorsopen|date('H:i') }} Uhr
 {% endfor %}{% endblock %}

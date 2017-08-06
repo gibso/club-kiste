@@ -24,6 +24,12 @@ interface ContentInterface
     public function getUpdatedAt();
 
     /**
+     * @param User $user
+     * @return mixed
+     */
+    public function setCreator(User $user);
+
+    /**
      * @return User
      */
     public function getCreator();

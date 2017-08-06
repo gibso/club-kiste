@@ -126,6 +126,6 @@ class Event extends Entity implements ContentInterface, EventInterface
      */
     public function getImageFile()
     {
-        return $this->getSeries()->getImageFile();
+        return null;
     }
 }

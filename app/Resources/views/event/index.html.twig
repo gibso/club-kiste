@@ -8,10 +8,10 @@
         <!-- Default panel contents -->
         <div class="panel-heading">{{ eventseries.title }} Termine</div>
         <div class="panel-body">
-            <p><a href="{{ path('eventseries_event_new', {'id': eventseries.id}) }}">Neuen Termin hinzufügen</a></p>
+            <p><a href="{{ path('event_new', {'id': eventseries.id}) }}">Neuen Termin hinzufügen</a></p>
             {% for event in eventseries.events %}
                 <p>
-                    <a href={{ path('eventseries_event_edit', {'seriesId': eventseries.id, 'eventId': event.id}) }}>
+                    <a href={{ path('event_edit', {'seriesId': eventseries.id, 'eventId': event.id}) }}>
                         {{ event.doorsopen|date('d.m.Y') }}, {{ event.doorsopen|date('H:i') }} Uhr
                     </a>
                 </p>

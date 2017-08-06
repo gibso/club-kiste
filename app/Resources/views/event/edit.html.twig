@@ -1,0 +1,13 @@
+{% extends 'model/edit.html.twig' %}
+
+{% block siteName %}{{ eventseries.title }}{% endblock %}
+
+{% block fields %}
+    <div class="form-group">
+        {{ form_label(edit_form.doorsopen) }}
+        <div class="col-md-5">
+            {{ form_errors(edit_form.doorsopen) }}
+            {{ form_widget(edit_form.doorsopen) }}
+        </div>
+    </div>
+{% endblock %}

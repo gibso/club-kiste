@@ -35,18 +35,18 @@ class PartnerController extends ContentController
      * @Route("admin/partner/new", name="partner_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request, FileUploader $fileUploader)
+    public function newAction(Request $request)
     {
-        return parent::newAction($request, $fileUploader);
+        return parent::newAction($request);
     }
 
     /**
      * @Route("admin/partner/{id}/edit", name="partner_edit")
      * @Method({"GET", "POST"})
      */
-    public function editAction(Request $request, Partner $partner, FileUploader $fileUploader)
+    public function editAction(Request $request, Partner $partner)
     {
-        return $this->edit($request, $partner, $fileUploader);
+        return $this->edit($request, $partner);
     }
 
     /**

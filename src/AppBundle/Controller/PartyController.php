@@ -53,9 +53,9 @@ class PartyController extends ContentController
      * @Route("admin/party/new", name="party_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request, FileUploader $fileUploader)
+    public function newAction(Request $request)
     {
-       return parent::newAction($request, $fileUploader);
+       return parent::newAction($request);
     }
 
     /**
@@ -71,9 +71,9 @@ class PartyController extends ContentController
      * @Route("admin/party/{id}/edit", name="party_edit")
      * @Method({"GET", "POST"})
      */
-    public function editAction(Request $request, Party $party, FileUploader $fileUploader)
+    public function editAction(Request $request, Party $party)
     {
-       return $this->edit($request, $party, $fileUploader);
+       return $this->edit($request, $party);
     }
 
     /**

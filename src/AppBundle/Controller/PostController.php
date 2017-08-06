@@ -25,6 +25,15 @@ class PostController extends ContentController
     }
 
     /**
+     * @Route("post/{id}", name="post_show")
+     * @Method("GET")
+     */
+    public function showAction(Post $post)
+    {
+        return $this->redirectToRoute('post_index');
+    }
+
+    /**
      * @Route("/", name="post_index")
      * @Method("GET")
      */
@@ -52,18 +61,18 @@ class PostController extends ContentController
      * @Route("admin/post/new", name="post_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request, FileUploader $fileUploader)
+    public function newAction(Request $request)
     {
-        return parent::newAction($request, $fileUploader);
+        return parent::newAction($request);
     }
 
     /**
      * @Route("admin/post/{id}/edit", name="post_edit")
      * @Method({"GET", "POST"})
      */
-    public function editAction(Request $request, Post $post, FileUploader $fileUploader)
+    public function editAction(Request $request, Post $post)
     {
-        return parent::edit($request, $post, $fileUploader);
+        return parent::edit($request, $post);
     }
 
     /**

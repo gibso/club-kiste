@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Content;
 use AppBundle\Entity\ContentInterface;
+use AppBundle\Entity\Event;
 use AppBundle\Entity\Eventseries;
 use AppBundle\Entity\Partner;
 use AppBundle\Entity\Party;
@@ -98,33 +99,12 @@ abstract class ContentController extends Controller
 
     /**
      * @param Request $request
-     * @param FileUploader $fileUploader
      * @return RedirectResponse|Response
      */
-    public function newAction(Request $request, FileUploader $fileUploader)
+    public function newAction(Request $request)
     {
         $content = $this->createNewContent();
-        $form = $this->createForm('AppBundle\Form\\' . ucfirst($this->getModelName()) . 'Type', $content);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            if ($content->getImageFile()) {
-                $fileName = $fileUploader->uploadFileTo(
-                    $content->getImageFile(), $this->getParameter('images_directory')
-                );
-                $content->setImage($fileName);
-            }
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($content);
-            $em->flush();
-
-            return $this->redirectToRoute($this->getModelName() . '_index');
-        }
-
-        return $this->render($content->getModelName() . '/edit.html.twig', array_merge($this->getParams(), [
-            'model' => $content,
-            'edit_form' => $form->createView(),
-        ]));
+        return $this->edit($request, $content);
     }
 
     /**
@@ -143,32 +123,22 @@ abstract class ContentController extends Controller
     /**
      * @param Request $request
      * @param ContentInterface $content
-     * @param FileUploader $fileUploader
      * @return RedirectResponse|Response
      */
-    public function edit(Request $request, ContentInterface $content, FileUploader $fileUploader)
+    public function edit(Request $request, ContentInterface $content, $params = [])
     {
-        $deleteForm = $this->createDeleteForm($content);
+        $deleteForm = $content->getId() ? $this->createDeleteForm($content)->createView() : null;
         $editForm = $this->createForm('AppBundle\Form\\' . ucfirst($this->getModelName()) . 'Type', $content);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            if ($content->getImageFile()) {
-                $fileName = $fileUploader->uploadFileTo(
-                    $content->getImageFile(), $this->getParameter('images_directory')
-                );
-                $content->setImage($fileName);
-            }
-
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute($content->getModelName() . '_edit', ['id' => $content->getId()]);
+            return $this->saveContent($content);
         }
 
-        return $this->render($this->getModelName() . '/edit.html.twig', array_merge($this->getParams(), [
+        return $this->render($this->getModelName() . '/edit.html.twig', array_merge($params, $this->getParams(), [
             'model' => $content,
             'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView()
+            'delete_form' => $deleteForm
         ]));
     }
 
@@ -192,6 +162,9 @@ abstract class ContentController extends Controller
         }
         if ($this->getModelClass() === Eventseries::class){
             return new Eventseries();
+        }
+        if ($this->getModelClass() === Event::class){
+            return new Event();
         }
         throw new \Exception('The Creator for ' . $this->getModelName() . ' is not implemented yet');
     }
@@ -224,6 +197,26 @@ abstract class ContentController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute($content->getModelName() . '_index');
+        $routeParams = $this->getModelClass() === Event::class ? ['id' => $content->getSeries()->getId()] : [];
+        return $this->redirectToRoute($content->getModelName() . '_index', $routeParams);
+    }
+
+    protected function saveContent(ContentInterface $content)
+    {
+        if ($content->getImageFile()) {
+            $fileName = $this->get('FileUploader')->uploadFileTo(
+                $content->getImageFile(), $this->getParameter('images_directory')
+            );
+            $content->setImage($fileName);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        if (!$content->getId()){
+            $content->setCreator($this->getUser());
+            $em->persist($content);
+        }
+        $em->flush();
+
+        return $this->redirectToRoute($this->getModelName() . '_show', ['id' => $content->getId()]);
     }
 }
