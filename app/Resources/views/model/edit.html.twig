@@ -69,7 +69,7 @@
     {{ form_end(edit_form) }}
     <br>
     {% if delete_form is defined and delete_form is not null %}
-        {{ form_start(delete_form) }}
+        {{ form_start(delete_form, {'attr': {'onclick': 'return confirm("Ganz sicher?")'}}) }}
         <button id="singlebutton" name="singlebutton" type="submit"
                 class="btn btn-danger">{{ model.modelname|capitalize }} löschen
         </button>

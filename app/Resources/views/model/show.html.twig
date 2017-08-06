@@ -12,7 +12,7 @@
             {% block adminButtons %}{% endblock %}
         </div>
         <div class="col-md-6">
-            {{ form_start(delete_form) }}
+            {{ form_start(delete_form, {'attr': {'onclick': 'return confirm("Ganz sicher?")'}}) }}
             <input class="btn btn-danger" type="submit" value="Löschen">
             {{ form_end(delete_form) }}
         </div>

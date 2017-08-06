@@ -2,10 +2,8 @@
 
 {% block siteName %}Kino{% endblock %}
 
-{% block body %}
+{% block fields %}
     {{ form_start(edit_form) }}
-    <fieldset>
-        <legend><h1>{{ model.modelName|capitalize }} bearbeiten</h1></legend>
         <div class="form-group {% if notFoundError %}has-error has-feedback{% endif %}">
             {{ form_label(edit_form.tmdbId) }}
             <div class="col-md-5">
@@ -28,26 +26,4 @@
                 {{ form_widget(edit_form.doorsopen) }}
             </div>
         </div>
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="singlebutton"></label>
-            <div class="col-md-4">
-                <button id="singlebutton" name="singlebutton" type="submit"
-                        class="btn btn-primary">Speichern
-                </button>
-            </div>
-        </div>
-    </fieldset>
-    {{ form_end(edit_form) }}
-
-
-
-    <a class="btn btn-default" href="{{ path(model.modelName ~ '_index') }}">Zurück</a>
-    <br>
-    {% if delete_form is defined %}
-        {{ form_start(delete_form) }}
-        <button id="singlebutton" name="singlebutton" type="submit"
-                class="btn btn-danger">{{ model.modelName|capitalize }} löschen
-        </button>
-        {{ form_end(delete_form) }}
-    {% endif %}
 {% endblock %}
