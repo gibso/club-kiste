@@ -2,7 +2,6 @@
 
 {% block siteName %}Kino{% endblock %}
 
-{% block background %}{{ asset('img/kino.jpeg') }}{% endblock %}
 {% block modelTitle %}{{ model.title }}{% if tmdbMovie.tagline is not empty %}.{% endif %}{% endblock %}
 {% block modelSubtitle %}{{ tmdbMovie.tagline }}{% endblock %}
 

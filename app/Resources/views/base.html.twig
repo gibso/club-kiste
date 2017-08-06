@@ -13,7 +13,7 @@
     <link href="{{ asset('css/index.css') }}" rel="stylesheet">
     <style>
         body {
-            background-image: url("{% block background %}{{ asset('img/main.jpg') }}{% endblock %}");
+            background-image: url("{% block background %}{{ asset('img/cover/' ~ active ~ '.jpg') }}{% endblock %}");
         }
     </style>
     {% block stylesheets %}{% endblock %}

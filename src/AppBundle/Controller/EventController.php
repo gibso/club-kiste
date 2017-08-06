@@ -26,6 +26,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
  */
 class EventController extends ContentController
 {
+    protected function getActiveNavi()
+    {
+        return 'eventseries';
+    }
+
     protected function getModelClass()
     {
         return Event::class;
@@ -37,7 +42,9 @@ class EventController extends ContentController
      */
     public function showAction(Event $event)
     {
-        return $this->redirectToRoute('eventseries_show', ['id' => $event->getSeries()->getId()]);
+        return $this->redirectToRoute('eventseries_show', [
+            'id' => $event->getSeries()->getId()
+        ]);
     }
 
     /**
