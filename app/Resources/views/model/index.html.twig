@@ -18,7 +18,7 @@
                 {% if loop.index is even %}
                     {% block modelImage %}
                         <div class="col-md-5">
-                            <div style="height: 350px; overflow: hidden; margin: 0 0 0 0;">
+                            <div style="max-height: 350px; overflow: hidden; margin: 0 0 0 0;">
                                 <img class="featurette-image img-responsive"
                                      src="{% block modelImageSrc %}{{ images_directory ~ model.image }}{% endblock %}"
                                      alt="Generic placeholder image">
