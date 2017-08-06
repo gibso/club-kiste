@@ -23,6 +23,15 @@ class ProductController extends ContentController
     }
 
     /**
+     * @Route("product/{id}", name="product_show")
+     * @Method("GET")
+     */
+    public function showAction(Product $product)
+    {
+        return $this->redirectToRoute('product_index');
+    }
+
+    /**
      * @Route("sortiment", name="product_index")
      * @Method("GET")
      */

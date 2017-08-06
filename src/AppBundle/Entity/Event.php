@@ -91,7 +91,7 @@ class Event extends Entity implements ContentInterface, EventInterface
     {
         $date = $this->getDoorsopen()->format('d.m.y');
         $time = $this->getDoorsopen()->format('H:i');
-        return $date . ', ' . $time . ' Uhr.';
+        return $date . ', ' . $time . ' Uhr';
     }
 
     /**

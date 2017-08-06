@@ -11,16 +11,12 @@
         </script>
     {% endif %}
 
-    <div class="row">
-        <div class="col-md-offset-4 col-md-2 alkoholfrei">
-            <a href="{{ path('product_index', { 'alcoholic': false }) }}">
-                <h4{% if not alcoholic %} style="font-weight: bold;" {% endif %}>Alkoholfrei</h4></a>
-        </div>
-        <div class="col-md-2 alkohol">
-            <a href="{{ path('product_index', { 'alcoholic': true }) }}">
-                <h4{% if alcoholic %} style="font-weight: bold;" {% endif %}>mit Alkohol</h4>
+    <div class="text-center">
+            <a class="btn btn-{% if not alcoholic %}primary{% else %}default{% endif %}" href="{{ path('product_index', { 'alcoholic': false }) }}">
+                <h4>Alkoholfrei</h4></a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="btn btn-{% if alcoholic %}primary{% else %}default{% endif %}" href="{{ path('product_index', { 'alcoholic': true }) }}">
+                <h4>mit Alkohol</h4>
             </a>
-        </div>
     </div>
     {{ parent() }}
 {% endblock %}
