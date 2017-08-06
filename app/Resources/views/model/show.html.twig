@@ -39,8 +39,11 @@
         </div>
         <div class="col-md-5">
             <img class="featurette-image img-responsive"
-                 src="{% block modelImageSrc %}{{ images_directory ~ model.image }}{% endblock %}"
-                 alt="Generic placeholder image"> <br>
+                    {% if model.image %}
+                src="{% block modelImageSrc %}{{ asset(images_directory ~ model.image) }}{% endblock %}"
+            {% else %}
+                src="{{ asset('img/placeholder.jpg') }}"
+                    {% endif %}><br>
         </div>
     </div>
     <a style="margin-left: 30px" href="{% block backLink %}{{ path(model.modelName ~ '_index') }}{% endblock %}" class="btn btn-default"><span

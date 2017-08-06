@@ -20,8 +20,11 @@
                         <div class="col-md-5">
                             <div style="max-height: 350px; overflow: hidden; margin: 0 0 0 0;">
                                 <img class="featurette-image img-responsive"
-                                     src="{% block modelImageSrc %}{{ images_directory ~ model.image }}{% endblock %}"
-                                     alt="Generic placeholder image">
+                                {% if model.image %}
+                                    src="{% block modelImageSrc %}{{ asset(images_directory ~ model.image) }}{% endblock %}"
+                                {% else %}
+                                    src="{{ asset('img/placeholder.jpg') }}"
+                                {% endif %}>
                             </div>
                         </div>
                     {% endblock %}
@@ -30,11 +33,12 @@
                     {% block featurette %}
                         <a href="{% block modelLink %}{{ path( model.modelName ~ '_show', {'id': model.id}) }}{% endblock %}">
                             <h2 class="featurette-heading">{% block modelTitle %}{{ model.title }}{% endblock %}.<span
-                                        class="text-muted"> {% block modelSubtitle %}{{ model.subtitle }}{% endblock %}.</span>
+                                        class="text-muted"> {% block modelSubtitle %}{{ model.subtitle }}{% endblock %}
+                                    .</span>
                             </h2>
                             <p class="lead">{% block modelContent %}{{ model.content|truncate(400) }}{% endblock %}</p>
                             <p>{% block footnote %}{{ model.modelName }} Gepostet
-                                am: {{ model.updatedAt|date("d.m.Y") }}{% endblock %}</p>
+                                    am: {{ model.updatedAt|date("d.m.Y") }}{% endblock %}</p>
                         </a>
                     {% endblock %}
                     {% if app.user and model.modelName != 'event' %}
