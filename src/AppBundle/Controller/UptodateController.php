@@ -41,11 +41,10 @@ class UptodateController extends ContentController
                 ->select('e')
                 ->where('e.doorsopen > :now')
                 ->setParameter('now', new \DateTime('now'), Type::DATETIME);
-
             $nextEvents = $queryBuilder->getQuery()->getResult();
 
-
             $entities = array_merge($entities, $nextEvents);
+            $order = [];
             /** @var EventInterface $content */
             foreach($nextEvents as $content){
                 $order[] = $content->getDoorsopen();
