@@ -50,7 +50,6 @@ class PostController extends ContentController
         foreach ($models as $model){
             $contents = $em->getRepository($model)->findAll();
             $entities = array_merge($entities, $contents);
-            $order = [];
             /** @var ContentInterface $content */
             foreach($contents as $content){
                 $order[] = $content->getUpdatedAt();
