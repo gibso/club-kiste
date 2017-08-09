@@ -48,6 +48,7 @@ class UptodateController extends ContentController
             $nextEvents = $queryBuilder->getQuery()->getResult();
 
             $entities = array_merge($entities, $nextEvents);
+            $order = [];
             /** @var EventInterface $content */
             foreach($nextEvents as $content){
                 $order[] = $content->getDoorsopen();
