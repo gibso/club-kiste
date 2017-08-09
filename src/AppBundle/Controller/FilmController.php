@@ -74,6 +74,7 @@ class FilmController extends ContentController
                 $film->setTitle($tmdbMovie->getTitle());
                 $film->setContent($tmdbMovie->getOverview());
                 $film->setImage($tmdbMovie->getPosterPath());
+                $film->setCreator($this->getUser());
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($film);
                 $em->flush();

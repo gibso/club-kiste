@@ -9,8 +9,11 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\ContentInterface;
+use AppBundle\Entity\Event;
 use AppBundle\Entity\EventInterface;
 use AppBundle\Entity\Eventseries;
+use AppBundle\Entity\Film;
+use AppBundle\Entity\Party;
 use AppBundle\Entity\Post;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\EntityRepository;
@@ -31,19 +34,18 @@ class UptodateController extends ContentController
      */
     public function indexAction(Request $request)
     {
-        $models = ['Film', 'Party', 'Event'];
+        $models = [Film::class, Party::class, Event::class];
         $entities = [];
+        $order = [];
         foreach ($models as $model){
             /** @var EntityRepository $eventRepo */
-            $eventRepo = $this->getDoctrine()->getManager()->getRepository('AppBundle:' . $model);
+            $eventRepo = $this->getDoctrine()->getManager()->getRepository($model);
             $queryBuilder = $eventRepo->createQueryBuilder('e');
             $queryBuilder
                 ->select('e')
                 ->where('e.doorsopen > :now')
                 ->setParameter('now', new \DateTime('now'), Type::DATETIME);
-
             $nextEvents = $queryBuilder->getQuery()->getResult();
-
 
             $entities = array_merge($entities, $nextEvents);
             /** @var EventInterface $content */

@@ -3,6 +3,10 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\ContentInterface;
+use AppBundle\Entity\Event;
+use AppBundle\Entity\Film;
+use AppBundle\Entity\Partner;
+use AppBundle\Entity\Party;
 use AppBundle\Entity\Post;
 use AppBundle\Service\FileUploader;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -40,10 +44,11 @@ class PostController extends ContentController
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $models = ['Post', 'Film', 'Party', 'Partner', 'Event'];
+        $models = [Post::class, Film::class, Party::class, Partner::class, Event::class];
         $entities = [];
+        $order = [];
         foreach ($models as $model){
-            $contents = $em->getRepository('AppBundle:' . $model)->findAll();
+            $contents = $em->getRepository($model)->findAll();
             $entities = array_merge($entities, $contents);
             /** @var ContentInterface $content */
             foreach($contents as $content){
