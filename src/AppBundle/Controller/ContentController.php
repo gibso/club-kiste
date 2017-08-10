@@ -214,6 +214,10 @@ abstract class ContentController extends Controller
         return $this->redirectToRoute($content->getModelName() . '_index', $routeParams);
     }
 
+    /**
+     * @param ContentInterface $content
+     * @return RedirectResponse
+     */
     protected function saveContent(ContentInterface $content)
     {
         if ($content->getImageFile()) {
