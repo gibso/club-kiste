@@ -40,6 +40,11 @@
                                                 </li>
                                             {% endfor %}
                                         {% endif %}
+                                        {% if app.user %}
+                                            <li>
+                                                <a href="{{ path('eventseries_new') }}">Eventreihe hinzufügen</a>
+                                            </li>
+                                        {% endif %}
                                     </ul>
                                 </li>
                             </ul>
