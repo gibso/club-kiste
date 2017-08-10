@@ -1,11 +1,18 @@
 {% extends 'base.html.twig' %}
 
+{% block siteName %}Leere Kiste{% endblock %}
+
 {% block body %}
-    <h1>Leere Kiste</h1>
-
-    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        {# ... #}
-    {% endif %}
-
-    <p>Die angeforderte Seite wurde nicht gefunden. Hast du dich vielleicht vertippt?</p>
+    <div style="margin: 0 30px -10px 30px">
+        <h2 class="featurette-heading">Fehler 404
+        </h2>
+    </div>
+    <hr class="featurette-divider">
+    <div class="row featurette">
+        <div class="col-md-12">
+            <div class="text-center">
+                <p class="lead">Die angeforderte Seite wurde nicht gefunden. Hast du dich vielleicht vertippt?</p>
+            </div>
+        </div>
+    </div>
 {% endblock %}
