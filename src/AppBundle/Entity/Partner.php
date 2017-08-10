@@ -12,9 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Partner extends Content implements ContentInterface
 {
-    const MODEL_NAME = 'partner';
-    public $modelName = 'partner';
-
     /**
      * @var string
      *

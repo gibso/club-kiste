@@ -23,6 +23,15 @@ class PartnerController extends ContentController
     }
 
     /**
+     * @Route("partner/{id}", name="partner_show")
+     * @Method("GET")
+     */
+    public function showAction(Partner $partner)
+    {
+        return $this->redirectToRoute('partner_index');
+    }
+
+    /**
      * @Route("partner/", name="partner_index")
      * @Method("GET")
      */
