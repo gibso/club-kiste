@@ -38,7 +38,7 @@ class ProductController extends ContentController
     public function indexAction(Request $request)
     {
         $alcoholic = $request->get('alcoholic') ? true : false;
-        $products = $this->getDoctrine()->getRepository('AppBundle:Product')->findBy(['alcoholic' => $alcoholic]);
+        $products = $this->getDoctrine()->getRepository('AppBundle:Product')->findBy(['alcoholic' => $alcoholic], ['updatedAt' => 'DESC']);
         return $this->render($this->getModelName() . '/index.html.twig', array_merge($this->getParams(), [
             'models' => $this->paginateContentByRequst($products, $request),
             'alcoholic' => $alcoholic

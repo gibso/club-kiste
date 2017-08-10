@@ -33,8 +33,7 @@
                     {% block featurette %}
                         <a href="{% block modelLink %}{{ path( model.modelName ~ '_show', {'id': model.id}) }}{% endblock %}">
                             <h2 class="featurette-heading">{% block modelTitle %}{{ model.title }}{% endblock %}.<span
-                                        class="text-muted"> {% block modelSubtitle %}{{ model.subtitle }}{% endblock %}
-                                    {% if model.subtitle is not empty %}.{% endif %}</span>
+                                        class="text-muted"> {% block modelSubtitle %}{{ model.subtitle }}{% endblock %}{% if model.subtitle is not empty %}.{% endif %}</span>
                             </h2>
                             <p class="lead">{% block modelContent %}{{ model.content|truncate(400) }}{% endblock %}</p>
                             <p>{% block footnote %}{{ model.modelName }} Gepostet

@@ -8,6 +8,7 @@ use AppBundle\Entity\Film;
 use AppBundle\Entity\Partner;
 use AppBundle\Entity\Party;
 use AppBundle\Entity\Post;
+use AppBundle\Entity\Product;
 use AppBundle\Service\FileUploader;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -44,7 +45,7 @@ class PostController extends ContentController
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $models = [Post::class, Film::class, Party::class, Partner::class, Event::class];
+        $models = [Post::class, Film::class, Party::class, Partner::class, Event::class, Product::class];
         $entities = [];
         $order = [];
         foreach ($models as $model){
