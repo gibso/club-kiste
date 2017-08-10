@@ -26,6 +26,19 @@ abstract class ContentController extends Controller
     const PAGE_LIMIT = 7;
 
     /**
+     * @var FileUploader
+     */
+    private $fileUploader;
+
+    /**
+     * @param FileUploader $fileUploader
+     */
+    public function __construct(FileUploader $fileUploader)
+    {
+        $this->fileUploader = $fileUploader;
+    }
+
+    /**
      * @return ObjectRepository
      */
     protected function getModelRepository()
@@ -201,10 +214,14 @@ abstract class ContentController extends Controller
         return $this->redirectToRoute($content->getModelName() . '_index', $routeParams);
     }
 
+    /**
+     * @param ContentInterface $content
+     * @return RedirectResponse
+     */
     protected function saveContent(ContentInterface $content)
     {
         if ($content->getImageFile()) {
-            $fileName = $this->get('FileUploader')->uploadFileTo(
+            $fileName = $this->fileUploader->uploadFileTo(
                 $content->getImageFile(), $this->getParameter('images_directory')
             );
             $content->setImage($fileName);

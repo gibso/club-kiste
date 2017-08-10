@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Leere Kiste</h1>
+
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        {# ... #}
+    {% endif %}
+
+    <p>Die angeforderte Seite wurde nicht gefunden. Hast du dich vielleicht vertippt?</p>
+{% endblock %}

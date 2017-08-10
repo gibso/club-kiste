@@ -1,0 +1,22 @@
+{
+  "name": "club-kiste",
+  "homepage": "http://club-kiste.de/",
+  "authors": [
+    "Oliver Görtz <oliver.goertz@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "web/components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.47"
+  }
+}
