@@ -16,7 +16,6 @@
     {% endif %}
 {% endblock %}
 
-
 {% block modelImageSrc %}
     {% if model.modelName == 'film' %}
         {{ 'http://image.tmdb.org/t/p/w600' ~ model.image }}
@@ -25,3 +24,18 @@
     {% endif %}
 {% endblock %}
 
+{% block body %}
+    {% if models is empty %}
+        <div class="row">
+            <div class="col-md-offset-2 col-md-8">
+                <h3 style="text-align: center">Sobald wir mehr wissen, informieren wir dich hier über anstehende
+                    Veranstaltungen!</h3>
+            </div>
+        </div>
+    {% else %}
+        {% for model in models %}
+            {{ block('model') }}
+        {% endfor %}
+    {% endif %}
+    {{ block('pagination') }}
+{% endblock %}
