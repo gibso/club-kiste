@@ -19,3 +19,4 @@
 /web/components/
 /.idea/
 .directory
+**/php.ini
