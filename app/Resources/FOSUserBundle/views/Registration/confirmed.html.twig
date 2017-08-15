@@ -1,0 +1,16 @@
+{% extends "@FOSUser/layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+    <div class="row">
+        <div class="col-md-offset-2 col-md-8">
+            <h3 style="text-align: center">Glückwunsch {{ user.username }}, dein Benutzerkonto ist erstellt. Ich muss
+                dich aber noch freischalten, schreib mir am besten bei Slack ;-) Oliver.</h3>
+        </div>
+    </div>
+
+    {% if targetUrl %}
+        <p><a href="{{ targetUrl }}">{{ 'registration.back'|trans }}</a></p>
+    {% endif %}
+{% endblock fos_user_content %}
