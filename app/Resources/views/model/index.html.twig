@@ -20,11 +20,11 @@
                         <div class="col-md-5">
                             <div style="max-height: 350px; overflow: hidden; margin: 0 0 0 0;">
                                 <img class="featurette-image img-responsive"
-                                {% if model.image %}
+                                        {% if model.image %}
                                     src="{% block modelImageSrc %}{{ asset(images_directory ~ model.image) }}{% endblock %}"
                                 {% else %}
                                     src="{{ asset('img/placeholder.jpg') }}"
-                                {% endif %}>
+                                        {% endif %}>
                             </div>
                         </div>
                     {% endblock %}
@@ -44,7 +44,9 @@
                             <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                         </a>
                     {% endif %}
-                    {% include 'components/social-media.html.twig'  with {'path': path( model.modelName ~ '_show', {'id': model.id})} %}
+                    {% if model.modelName != 'post' and model.modelName != 'partner' and model.modelName != 'product' %}
+                        {% include 'components/social-media.html.twig'  with {'path': path( model.modelName ~ '_show', {'id': model.id})} %}
+                    {% endif %}
                 </div>
                 {% if loop.index is not even %}
                     {{ block('modelImage') }}
