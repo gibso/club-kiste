@@ -136,8 +136,6 @@
     var domain = '{{ app.request.getSchemeAndHttpHost() }}';
     var path = '{{ path }}';
     var link = domain + path;
-    console.log(link);
-
     document.getElementById('facebookShare').onclick = function () {
         FB.ui({
             method: 'share',
