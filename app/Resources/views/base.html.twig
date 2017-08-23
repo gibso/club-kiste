@@ -7,6 +7,25 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
     <script type="text/javascript" src="{{ asset('components/jquery/dist/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId            : '150096942241309',
+                autoLogAppEvents : true,
+                xfbml            : true,
+                version          : 'v2.10'
+            });
+            FB.AppEvents.logPageView();
+        };
+
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
     {% block javascripts %}{% endblock %}
     <link rel="stylesheet" href="{{ asset('components/bootstrap/dist/css/bootstrap.min.css') }}">
     <link href='{{ asset('fonts/broadway/stylesheet.css') }}' rel='stylesheet' type='text/css'>

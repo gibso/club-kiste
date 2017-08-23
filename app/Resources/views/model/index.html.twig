@@ -44,6 +44,7 @@
                             <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                         </a>
                     {% endif %}
+                    {% include 'components/social-media.html.twig' %}
                 </div>
                 {% if loop.index is not even %}
                     {{ block('modelImage') }}
