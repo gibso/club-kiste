@@ -39,6 +39,15 @@ class PostController extends ContentController
     }
 
     /**
+     * @Route("kiste/", name="deprecated_route")
+     * @Method("GET")
+     */
+    public function deprecatedAction()
+    {
+        return $this->redirectToRoute('post_index');
+    }
+
+    /**
      * @Route("/", name="post_index")
      * @Method("GET")
      */
