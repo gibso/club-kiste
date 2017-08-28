@@ -36,16 +36,22 @@
                                         class="text-muted"> {% block modelSubtitle %}{{ model.subtitle }}{% endblock %}{% if model.subtitle is not empty %}.{% endif %}</span>
                             </h2>
                             <p class="lead">{% block modelContent %}{{ model.content|truncate(400) }}{% endblock %}</p>
-                            <p>{% block footnote %}Gepostet am {{ model.updatedAt|date("d.m.Y") }} um {{ model.updatedAt|date("H:i") }} Uhr{% endblock %}</p>
+                            <div class="row">
+                                <div class="col-md-11">
+                                    <p>{% block footnote %}Gepostet am {{ model.updatedAt|date("d.m.Y") }} um {{ model.updatedAt|date("H:i") }} Uhr{% endblock %}</p>
+                                </div>
+                                <div class="col-md-1">
+                                    {% if model.modelName != 'post' and model.modelName != 'partner' and model.modelName != 'product' %}
+                                        {% include 'components/social-media.html.twig'  with {'path': path( model.modelName ~ '_show', {'id': model.id})} %}
+                                    {% endif %}
+                                </div>
+                            </div>
                         </a>
                     {% endblock %}
                     {% if app.user and model.modelName != 'event' %}
                         <a href="{{ path(model.modelName ~ '_edit', { 'id': model.id }) }}" class="btn btn-default">
                             <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                         </a>
-                    {% endif %}
-                    {% if model.modelName != 'post' and model.modelName != 'partner' and model.modelName != 'product' %}
-                        {% include 'components/social-media.html.twig'  with {'path': path( model.modelName ~ '_show', {'id': model.id})} %}
                     {% endif %}
                 </div>
                 {% if loop.index is not even %}
