@@ -1,0 +1,31 @@
+version: '3.3'
+
+services:
+   db:
+     image: mysql:5.7
+     volumes:
+       - db_data:/var/lib/mysql
+     environment:
+       MYSQL_ROOT_PASSWORD: symfony
+       MYSQL_DATABASE: symfony
+       MYSQL_USER: symfony
+       MYSQL_PASSWORD: symfony
+
+   symfony:
+     links:
+       - db
+     build:
+       context: ./
+     ports:
+       - "8000:8000"
+     volumes:
+       - ./app:/usr/src/kiste/app
+       - ./src:/usr/src/kiste/src
+     environment:
+       DB_HOST: db:3306
+       DB_USER: symfony
+       DB_PASSWORD: symfony
+       mailer_user: test
+       mailer_password: test
+volumes:
+    db_data:
