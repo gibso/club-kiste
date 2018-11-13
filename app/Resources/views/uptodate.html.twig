@@ -18,7 +18,7 @@
 
 {% block modelImageSrc %}
     {% if model.modelName == 'film' %}
-        {{ 'http://image.tmdb.org/t/p/w600' ~ model.image }}
+        {{ 'http://image.tmdb.org/t/p/w400' ~ model.image }}
     {% else %}
         {{ parent() }}
     {% endif %}
